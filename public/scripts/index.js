@@ -40,19 +40,19 @@ $(document).ready(function(){
   });
 
   $(".container article header input").keydown(function(event) {
-      if (event.keyCode == 13) {
+      if (event.keyCode === 13) {
         $(".container article header button").click();
       }
   });
 
   $(".container article main").keydown("input", function(event) {
     console.log("pressed")
-      if (event.keyCode == 13) {
+      if (event.keyCode === 13) {
         $(".container article footer .form button").first().click();
       }
   });
   $(".container article footer input").keydown(function(event) {
-      if (event.keyCode == 13) {
+      if (event.keyCode === 13) {
         $(".container article footer .submit button").click();
       }
   });
