@@ -25,6 +25,9 @@ $primary-contrast: #E0FFFF;
     border-width: 5px;
     border-color: lighten( $primary-color, 10% );
   }
+  article {
+    margin-top: 2%;
+  }
   header a {
     color: lighten( $primary-color, 10% );
     margin: 5%;
@@ -32,10 +35,11 @@ $primary-contrast: #E0FFFF;
     font-size: 2vw;
   }
   main {
-    border-bottom: groove $primary-color;
+    border-top: solid lighten( $primary-color, 10% );
+    border-bottom: groove lighten( $primary-color, 10% );
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     flex-wrap: wrap;
     margin-left: 5%;
     margin-right: 5%;
@@ -45,6 +49,7 @@ $primary-contrast: #E0FFFF;
       border-width: 5px;
       border-color: lighten( $primary-color, 10% );
       padding: 8px;
+      margin-top: 2%;
       margin-bottom: 2%;
       margin-right: 2%
     }
@@ -58,8 +63,8 @@ $primary-contrast: #E0FFFF;
     margin-bottom: 1%;
     display: flex;
     justify-content: space-between;
-    button {
-      margin-top:2%;
+    div {
+      margin-top:1%;
     }
   }
 }
