@@ -40,21 +40,22 @@ $(document).ready(function(){
   });
 
   $(".container article header input").keydown(function(event) {
-      if (event.keyCode == 13) {
+      if (event.keyCode === 13) {
         $(".container article header button").click();
       }
   });
 
-  // $(".container article header input").keydown(function(event) {
-  //     if (event.keyCode == 13) {
-  //       $(".container article footer .form button").click();
-  //     }
-  // });
-  // $(".container article main input").keydown(function(event) {
-  //     if (event.keyCode == 13) {
-  //       $(".container article header button").click();
-  //     }
-  // });
+  $(".container article main").keydown("input", function(event) {
+    console.log("pressed")
+      if (event.keyCode === 13) {
+        $(".container article footer .form button").first().click();
+      }
+  });
+  $(".container article footer input").keydown(function(event) {
+      if (event.keyCode === 13) {
+        $(".container article footer .submit button").click();
+      }
+  });
 
 
   $(".container article footer .form button:nth-child(2)").click(function(){
@@ -65,6 +66,7 @@ $(document).ready(function(){
 
   $(".container article footer .form button").first().click(function(){
     $(".container article main").prepend(newSection);
+    $(".container article section input").first().focus();
   });
 
   $(".container article footer .submit button").click(function(){
@@ -85,7 +87,7 @@ $(document).ready(function(){
         alert("One or more title options is empty!");
         return;
       }
-      choices[i-1] = {"title": title, 'description': description};
+      choices[i-1] = {"choice_title": title, 'description': description};
     }
     data = { "email": email,
       'question': $(".container article header a").text(),
