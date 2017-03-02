@@ -31,6 +31,37 @@ $primary-contrast: #E0FFFF;
     font-family: 'Russo One', sans-serif;
     font-size: 2vw;
   }
+  main {
+    border-bottom: groove $primary-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-left: 5%;
+    margin-right: 5%;
+    section {
+      border-radius: 8px;
+      border-style: groove;
+      border-width: 5px;
+      border-color: lighten( $primary-color, 10% );
+      padding: 8px;
+      margin-bottom: 2%;
+      margin-right: 2%
+    }
+    textarea {
+      resize: none;
+    }
+  }
+  footer {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 1%;
+    display: flex;
+    justify-content: space-between;
+    button {
+      margin-top:2%;
+    }
+  }
 }
 
 .input-group {
