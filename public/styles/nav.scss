@@ -17,5 +17,22 @@ $primary-contrast: #E0FFFF;
 }
 
 .container {
-  margin: 0 auto;
+  margin: auto;
+  width: 60%;
+  article {
+    border-radius: 8px;
+    border-style: groove;
+    border-width: 5px;
+    border-color: lighten( $primary-color, 10% );
+  }
+  header a {
+    color: lighten( $primary-color, 10% );
+    margin: 5%;
+    font-family: 'Russo One', sans-serif;
+    font-size: 2vw;
+  }
+}
+
+.input-group {
+  margin: 2% 5% 5% 5%;
 }
