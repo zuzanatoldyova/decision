@@ -93,12 +93,12 @@ $(document).ready(function(){
     }
       $.ajax({
       url: '/polls',
-      method: 'PUT',
+      method: 'POST',
       data: data,
-    }).then(function(data){
-      console.log(data);
-    }).catch(function(err){
-        console.log("Can't get links");
-    });
+      }).then(function(data){
+        console.log(data);
+      }).catch(function(err){
+          console.log("Can't get links");
+      });
   });
 });
