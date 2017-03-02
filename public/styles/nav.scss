@@ -1,0 +1,21 @@
+$primary-color: #118415;
+$primary-contrast: #E0FFFF;
+
+.page-header {
+  background-color: $primary-color;
+  height: 150px;
+  padding: 0px;
+  margin: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  p {
+    color: $primary-contrast;
+    font-family: 'Russo One', sans-serif;
+    font-size: 4vw;
+  }
+}
+
+.container {
+  margin: 0 auto;
+}
