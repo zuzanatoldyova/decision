@@ -85,7 +85,7 @@ $(document).ready(function(){
         alert("One or more title options is empty!");
         return;
       }
-      choices[i-1] = {"title": title, 'description': description};
+      choices[i-1] = {"choice_title": title, 'description': description};
     }
     data = { "email": email,
       'question': $(".container article header a").text(),
