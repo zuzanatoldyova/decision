@@ -44,7 +44,7 @@ app.listen(PORT, () => {
 
 app.use(express.static("../public"));
 
-app.use(pollsRoutes(queries));
+app.use('/polls', pollsRoutes(queries));
 // query.insertPoll({
 //   poll_id: 1,
 //   choice_title: "Good",

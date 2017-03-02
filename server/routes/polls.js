@@ -3,17 +3,17 @@ const bodyParser    = require("body-parser");
 const pollsRoutes   = require('express').Router();
 const bcrypt = require('bcryptjs');
 const queries = require('../lib/queries');
+const md5 = require('md5');
 
-// console.log(bcrypt.hashSync('1', 10));
 
 function createKey(id){
-  let admin = bcrypt.hashSync(id, 10);
-  let user = bcrypt.hashSync(id, 10);
+  let admin = md5(id);
+  let user = md5(id * 5);
   return [user, admin];
 }
 
 module.exports = (queries) => {
-  pollsRoutes.post('/polls', (req, res) => {
+  pollsRoutes.post('/', (req, res) => {
     console.log('Body of request: ', req.body);
     queries.insertUser({email: req.body.email}, (id) => {
       let keys = createKey(id.join(''));
@@ -32,11 +32,26 @@ module.exports = (queries) => {
         for (let choice of req.body.choices) {
           choice.poll_id = poll_id;
         }
-        console.log(req.body.choices);
         queries.insertChoice(req.body.choices, () => {
           console.log('response from post POLLS', data);
           res.status(201).json(data);
         });
+      });
+    });
+  });
+
+  pollsRoutes.get('/:id', (req, res) => {
+    console.log(req.params.id);
+    queries.findPoll(req.params.id, (result) => {
+      let pollId = result[0].id;
+      let question = result[0].question;
+      queries.findChoices(pollId, (choices) => {
+        let data = {
+          question,
+          choices
+        };
+        console.log(data);
+        res.status(201).json(data);
       });
     });
   });

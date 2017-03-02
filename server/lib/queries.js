@@ -16,9 +16,7 @@ module.exports = {
   // insert returning id of just inserted
   insertUser: (data, done) => {
     knex('users')
-    .insert({
-      email: data.email
-    }, 'id')
+    .insert(data, 'id')
     .then(done)
     .catch((err) => {
       console.log(err);
@@ -27,13 +25,7 @@ module.exports = {
 
   insertPoll: (data, done) => {
     knex('polls')
-    .insert({
-      user_id: data.user_id,
-      question: data.question,
-      end_date: data.end_date,
-      user_key: data.user_key,
-      admin_key: data.admin_key
-      }, ['id', 'user_key', 'admin_key'])
+    .insert(data, ['id', 'user_key', 'admin_key'])
     .then(done)
     .catch((err) => {
       console.log(err);
@@ -42,13 +34,7 @@ module.exports = {
 
   insertChoice: (data, done) => {
     knex('choices')
-    .insert(data
-    // {
-    //   poll_id: data.poll_id,
-    //   choice_title: data.choice_title,
-    //   description: data.description
-    // }
-    )
+    .insert(data)
     .then(done)
     .catch((err) => {
       console.log(err);
@@ -61,6 +47,27 @@ module.exports = {
       choice_id: data.choice_id,
       points: data.points
     })
+    .then(done)
+    .catch((err) => {
+      console.log(err);
+    });
+  },
+
+  findPoll: (key, done) => {
+    knex('polls')
+    .select()
+    .where('user_key', key)
+    .orWhere('admin_key', key)
+    .then(done)
+    .catch((err) => {
+      console.log(err);
+    });
+  },
+
+  findChoices: (key, done) => {
+    knex('choices')
+    .select()
+    .where('poll_id', key)
     .then(done)
     .catch((err) => {
       console.log(err);
