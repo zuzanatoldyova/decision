@@ -42,16 +42,18 @@ module.exports = (queries) => {
   });
 
   pollsRoutes.get('/:id', (req, res) => {
-    queries.findPoll(req.params.id, (result) => {
+    queries.findPollUser(req.params.id, (result) => {
       let pollId = result[0].id;
       let question = result[0].question;
+      let email = result[0].email;
       queries.findChoices(pollId, (choices) => {
         let data = {
+          email,
           question,
           choices
         };
         console.log(data);
-        res.render('../public/views/', data);
+        res.render('../../public/views/rankpoll', data);
         // res.status(201).json(data);
         
       });
@@ -71,8 +73,10 @@ module.exports = (queries) => {
     queries.findPoll(req.params.id, (result) => {
       let pollId = result[0].id;
       let question = result[0].question;
+      let email = result[0].email;
       queries.findChoicesResults(pollId, (results) => {
         let data = {
+          email,
           question,
           results
         };
