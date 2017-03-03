@@ -8,6 +8,8 @@ const app           = express();
 
 const sassMiddleware = require('node-sass-middleware');
 const path = require('path');
+
+app.set("view engine", "ejs");
 app.use(sassMiddleware({
   /* Options */
   src: path.join(__dirname, '../public/'),

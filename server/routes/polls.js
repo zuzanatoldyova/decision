@@ -51,7 +51,7 @@ module.exports = (queries) => {
           choices
         };
         console.log(data);
-        res.render('../public/views/')
+        res.render('../public/views/', data);
         // res.status(201).json(data);
         
       });
