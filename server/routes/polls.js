@@ -43,15 +43,22 @@ module.exports = (queries) => {
 
   pollsRoutes.get('/:id', (req, res) => {
     queries.findPollUser(req.params.id, (result) => {
+      console.log(result);
       let pollId = result[0].id;
       let question = result[0].question;
-      let email = result[0].email;
+      // let email = result[0].email;
+      // let choice_title = result[0].choices.choice_title;
+      // let data_id = result[0].choices.id;
+      // let description = result[0].choices.description;
       queries.findChoices(pollId, (choices) => {
-        let data = {
-          email,
-          question,
-          choices
-        };
+        let data = {"question":"sport","choices":[{"id":124,"poll_id":56,"choice_title":"tennis","description":""},{"id":125,"poll_id":56,"choice_title":"soccer","description":""}]}
+        // {
+        //   email,
+        //   question,
+        //   choice_title,
+        //   data_id, 
+        //   choices
+        // };
         console.log(data);
         res.render('../../public/views/rankpoll', data);
         // res.status(201).json(data);

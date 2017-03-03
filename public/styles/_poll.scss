@@ -1,7 +1,12 @@
 $primary_color: #118415;
-$primary-contrast:  #E0FFFF;
+$primary-contrast:  #118415;
 $dropareas-color: lighten($primary_color, 10%);
 $maintext-color: lighten($primary_color, 10%);
+$font_headers: 'Russo One', sans-serif;
+
+@mixin shadowing() {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 0 3px rgba(0, 0, 0, 0.2);
+}
 
 #ranked-options {
   color: $maintext-color;
