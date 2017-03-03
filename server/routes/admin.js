@@ -16,7 +16,7 @@ module.exports = (queries) => {
           question,
           results
         };
-        res.status(201).json(data);
+        res.render("../../views/results", data);
 
       });
     });
