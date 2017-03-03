@@ -45,6 +45,7 @@ app.listen(PORT, () => {
 
 app.use(express.static("../public"));
 
+
 app.use('/polls', pollsRoutes(queries));
 app.use('/admin/polls', adminRoutes(queries));
 // query.insertPoll({

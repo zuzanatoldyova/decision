@@ -6,7 +6,7 @@ const queries = require('../lib/queries');
 module.exports = (queries) => {
   adminRoutes.get('/:id/results', (req, res) => {
     console.log('Get results id:', req.params.id);
-    queries.findPoll(req.params.id, (result) => {
+    queries.findPollAdmin(req.params.id, (result) => {
       let open = result[0].open;
       let pollId = result[0].id;
       let question = result[0].question;
