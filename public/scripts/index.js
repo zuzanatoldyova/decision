@@ -7,12 +7,22 @@ function questionSubmit(){
       $(".container article main").slideDown( "slow", function() {});
       $(".container article footer").slideDown( "slow", function() {});
       $(".container article section input").first().focus();
+      $(".container article header .alert-danger").remove();
     }
     if (input.length >= 140){
-      alert("Max Characters of 140");
+      $(".container article .input-group input").css("border-color", "red");
+      if(!$(".container article header .alert-danger").length){
+        $(".container article header").append(`<div class="alert alert-danger" role="alert">
+  <a>Max Characters of 140</a></div>`);
+      }
     }
     if (input.replace(/\s+/g, "").length === 0){
-      alert("Please input some values");
+      $(".container article .input-group input").css("border-color", "red");
+      if(!$(".container article header .alert-danger").length){
+        $(".container article header").append(`<div class="alert alert-danger" role="alert">
+          <a>Please input some values</a>
+          </div>`);
+      }
     }
 }
 
@@ -28,42 +38,7 @@ function hasDuplicates(array) {
     return false;
 }
 
-    // var choicesLength = $(".container article main section").length;
-    // var choices = [];
-    // var titles = [];
-    // var title;
-    // var description;
-    // var descriptions = [];
-    // var data = {};
-    // var email = $(`.container article footer input`).val();
-    // if(!validateEmail(email)){
-    //   alert("Enter a valid email!");
-    //   return;
-    // }
-    // for(let i = 1; i <= choicesLength; i++){
-    //   title = $(`.container article main section:nth-child(${i}) input`).val();
-    //   description = $(`.container article main section:nth-child(${i}) textarea`).val();
-    //   if(title.replace(/\s+/g, "").length === 0){
-    //     if(description.replace(/\s+/g, "").length !== 0){
-    //       alert("You are missing a title");
-    //       return;
-    //     }
-    //   } else {
-    //     titles.push(title);
-    //     descriptions.push(descriptions);
-    //   }
-    // }
-    // if(hasDuplicates(titles)){
-    //   alert("You have duplicate inputs");
-    //   return;
-    // }
-    // for( let i = 0; i < titles.length; i++){
-    //   choices[i] = {"choice_title": title, 'description': description};
-    // }
-    // data = { "email": email,
-    //   'question': $(".container article header a").text(),
-    //   'choices': choices
-    // }
+
 
 function validateEmail(email) {
   var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

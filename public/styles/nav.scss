@@ -37,6 +37,15 @@ $primary-contrast: #E0FFFF;
     font-size: 1vw;
     }
   }
+  .input-group {
+    margin: 2% 5% 5% 5%;
+  }
+  .alert-danger{
+    margin: 0% 5% 5% 5%;
+    a {
+      font-size: 1vw;
+    }
+  }
   article {
     margin-top: 2%;
   }
@@ -86,6 +95,3 @@ $primary-contrast: #E0FFFF;
   }
 }
 
-.input-group {
-  margin: 2% 5% 5% 5%;
-}
