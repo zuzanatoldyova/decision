@@ -3,7 +3,7 @@
 const pollsRoutes   = require('express').Router();
 const queries = require('../lib/queries');
 const md5 = require('md5');
-
+const email = require('../lib/email');
 
 function createKey(id){
   let admin = md5(id);
@@ -32,7 +32,8 @@ module.exports = (queries) => {
           choice.poll_id = poll_id;
         }
         queries.insertChoice(req.body.choices, () => {
-          // TODO send email with links to the creator
+          let recipient = 'zuzana.toldyova@gmail.com';
+          email.sendMailCreated(recipient, data);
           console.log('response from post POLLS', data);
           res.status(201).json(data);
         });
