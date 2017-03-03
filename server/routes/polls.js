@@ -1,7 +1,6 @@
 'use strict';
-const bodyParser    = require("body-parser");
+
 const pollsRoutes   = require('express').Router();
-const bcrypt = require('bcryptjs');
 const queries = require('../lib/queries');
 const md5 = require('md5');
 
@@ -42,7 +41,9 @@ module.exports = (queries) => {
   });
 
   pollsRoutes.get('/:id', (req, res) => {
-    queries.findPoll(req.params.id, (result) => {
+    // TODO: check if id exists
+    // TODO: if poll closed send polls results
+    queries.findPollUser(req.params.id, (result) => {
       let pollId = result[0].id;
       let question = result[0].question;
       queries.findChoices(pollId, (choices) => {
@@ -56,27 +57,12 @@ module.exports = (queries) => {
     });
   });
 
-  pollsRoutes.put('/:id', (req, res) => {
+  pollsRoutes.post('/:id', (req, res) => {
+    // TODO: check if id exists
     console.log(req.body.answers);
     queries.insertAnswer(req.body.answers, () => {
       // TODO: sned an email to the admin
       res.status(201).send();
-    });
-  });
-
-  pollsRoutes.get('/:id/results', (req, res) => {
-    console.log('Get results id:', req.params.id);
-    queries.findPoll(req.params.id, (result) => {
-      let pollId = result[0].id;
-      let question = result[0].question;
-      queries.findChoicesResults(pollId, (results) => {
-        let data = {
-          question,
-          results
-        };
-        res.status(201).json(data);
-
-      });
     });
   });
 

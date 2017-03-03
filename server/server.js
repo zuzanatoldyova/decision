@@ -17,7 +17,8 @@ app.use(sassMiddleware({
 }));
 
 const queries = require('./lib/queries.js');
-const pollsRoutes = require('./routes/polls.js')
+const pollsRoutes = require('./routes/polls.js');
+const adminRoutes = require('./routes/admin.js');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -45,6 +46,7 @@ app.listen(PORT, () => {
 app.use(express.static("../public"));
 
 app.use('/polls', pollsRoutes(queries));
+app.use('/admin/polls', adminRoutes(queries));
 // query.insertPoll({
 //   poll_id: 1,
 //   choice_title: "Good",
