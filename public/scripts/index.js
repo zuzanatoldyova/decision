@@ -148,10 +148,12 @@ $(document).ready(function(){
       }).then(function(data){
         var admin_link = data.admin;
         var voting_link =data.user;
-        var linkshtml = `<div class="links"><a href="/polls/admin/${admin_link}/results">Admin Link</a>
+        var linkshtml = `<div class="links"><a href="/admin/polls/${admin_link}/results">Admin Link</a>
         <a href="/polls/${voting_link}">Voter Link</a></div>`;
+        $(".container article header .alert-danger").remove();
         $(".container article header").remove();
         $(".container article main").remove();
+        $(".container article aside").remove();
         $(".container article footer").remove();
         $(".container article").prepend(linkshtml);
       }).catch(function(err){
