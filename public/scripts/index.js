@@ -5,6 +5,7 @@ function questionSubmit(){
       $(".container article header span").remove();
       $(".container article header a").text(input);
       $(".container article main").slideDown( "slow", function() {});
+      $(".container article aside").slideDown( "slow", function() {});
       $(".container article footer").slideDown( "slow", function() {});
       $(".container article section input").first().focus();
       $(".container article header .alert-danger").remove();
@@ -60,6 +61,9 @@ $(document).ready(function(){
 
   $(".container article footer").slideUp( "fast", function() {});
 
+  $(".container article aside").slideUp( "fast", function() {});
+
+
   $(".container article header button").click( function(){
     questionSubmit();
   });
@@ -84,13 +88,13 @@ $(document).ready(function(){
 
   $(".container article footer .form button:nth-child(2)").click(function(){
     if ($(".container article main section").length > 1){
-      $(".container article main section").first().remove();
+      $(".container article main section").last().remove();
     }
   });
 
   $(".container article footer .form button").first().click(function(){
-    $(".container article main").prepend(newSection);
-    $(".container article section input").first().focus();
+    $(".container article main").append(newSection);
+    $(".container article section input").last().focus();
   });
 
   $(".container article footer .submit button").click(function(){
@@ -104,7 +108,11 @@ $(document).ready(function(){
     var count = 0;
     var email = $(`.container article footer input`).val();
     if(!validateEmail(email)){
-      alert("Enter a valid email!");
+      if(!$(".container article header .alert-danger").length){
+        $(".container article header").append(`<div class="alert alert-danger" role="alert">
+          <a>Enter Valid Email</a>
+          </div>`);
+      }
       return;
     }
     for(let i = 1; i <= choicesLength; i++){
@@ -122,7 +130,11 @@ $(document).ready(function(){
       }
     }
     if(hasDuplicates(titles)){
-      alert("You have duplicate inputs");
+      if(!$(".container article header .alert-danger").length){
+        $(".container article header").append(`<div class="alert alert-danger" role="alert">
+          <a>You have duplicate inputs</a>
+          </div>`);
+      }
       return;
     }
     data = { "email": email,
@@ -136,7 +148,7 @@ $(document).ready(function(){
       }).then(function(data){
         var admin_link = data.admin;
         var voting_link =data.user;
-        var linkshtml = `<div class="links"><a href="/polls/${admin_link}">Admin Link</a>
+        var linkshtml = `<div class="links"><a href="/polls/admin/${admin_link}/results">Admin Link</a>
         <a href="/polls/${voting_link}">Voter Link</a></div>`;
         $(".container article header").remove();
         $(".container article main").remove();

@@ -21,9 +21,9 @@ $primary-contrast: #E0FFFF;
   width: 60%;
   article {
     border-radius: 8px;
-    border-style: groove;
-    border-width: 5px;
-    border-color: lighten( $primary-color, 10% );
+    border-style: solid;
+    border-width: 2px;
+    border-color: grey;
   }
   .links {
     display: flex;
@@ -91,6 +91,16 @@ $primary-contrast: #E0FFFF;
     }
   .submit {
       display: flex;
+    }
+  }
+  aside {
+    border-bottom: groove lighten( $primary-color, 10% );
+    margin-top: 1%;
+    margin-left: 5%;
+    margin-right: 5%;
+
+    div {
+      margin-bottom: 1%;
     }
   }
 }
