@@ -14,7 +14,7 @@ function createKey(id){
 
 module.exports = (queries) => {
   pollsRoutes.post('/', (req, res) => {
-    console.log('Body of request: ', req.body);
+    // console.log('Body of request: ', req.body);
     queries.insertUser({email: req.body.email}, (id) => {
       let keys = createKey(id.join(''));
       queries.insertPoll({
@@ -33,6 +33,7 @@ module.exports = (queries) => {
           choice.poll_id = poll_id;
         }
         queries.insertChoice(req.body.choices, () => {
+          // TODO send email with links to the creator
           console.log('response from post POLLS', data);
           res.status(201).json(data);
         });
@@ -41,7 +42,6 @@ module.exports = (queries) => {
   });
 
   pollsRoutes.get('/:id', (req, res) => {
-    console.log(req.params.id);
     queries.findPoll(req.params.id, (result) => {
       let pollId = result[0].id;
       let question = result[0].question;
@@ -52,6 +52,30 @@ module.exports = (queries) => {
         };
         console.log(data);
         res.status(201).json(data);
+      });
+    });
+  });
+
+  pollsRoutes.put('/:id', (req, res) => {
+    console.log(req.body.answers);
+    queries.insertAnswer(req.body.answers, () => {
+      // TODO: sned an email to the admin
+      res.status(201).send();
+    });
+  });
+
+  pollsRoutes.get('/:id/results', (req, res) => {
+    console.log('Get results id:', req.params.id);
+    queries.findPoll(req.params.id, (result) => {
+      let pollId = result[0].id;
+      let question = result[0].question;
+      queries.findChoicesResults(pollId, (results) => {
+        let data = {
+          question,
+          results
+        };
+        res.status(201).json(data);
+
       });
     });
   });
