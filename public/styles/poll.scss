@@ -1,0 +1,62 @@
+$primary_color: #118415;
+$primary-contrast:  #E0FFFF;
+$dropareas-color: lighten($primary_color, 10%);
+$maintext-color: lighten($primary_color, 10%);
+
+#ranked-options {
+  color: $maintext-color;
+  .poll-option {
+    padding: 1em;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    @include shadowing();
+
+    &:hover {
+      cursor: -webkit-grab;
+      cursor: -moz-grab;
+      cursor: grab;
+    }
+
+    &:active {
+      cursor: -webkit-grabbing;
+      cursor: -moz-grabbing;
+      cursor: grabbing;
+    }
+
+    .col-xs-2 {
+      text-align: right;
+    }
+
+    span {
+      font-family: $font_headers;
+      font-size: 2em;
+    }
+  }
+}
+
+.section-container {
+  border: 1px solid $dropareas-color;
+  padding: 1.5em 1.5em 0 1.5em;
+  margin-bottom: 2em;
+  @include shadowing();
+
+  header {
+    text-align: center;
+    margin: 0 0 2em;
+    border-bottom: 1px solid $dropareas-color;
+    padding: 1em 0 2em;
+    h1, h2, h3, h4, h5, h6, p {
+      margin: 0;
+    }
+  }
+
+  &.options {
+    background-color: $primary-contrast;
+    padding-bottom: 1.5em;
+    color: #fff;
+
+    header {
+      border-color: $primary_color;
+    }
+  }
+}
