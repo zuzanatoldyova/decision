@@ -93,5 +93,15 @@ $primary-contrast: #E0FFFF;
       display: flex;
     }
   }
+  aside {
+    border-bottom: groove lighten( $primary-color, 10% );
+    margin-top: 1%;
+    margin-left: 5%;
+    margin-right: 5%;
+
+    div {
+      margin-bottom: 1%;
+    }
+  }
 }
 

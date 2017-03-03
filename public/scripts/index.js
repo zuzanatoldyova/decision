@@ -5,6 +5,7 @@ function questionSubmit(){
       $(".container article header span").remove();
       $(".container article header a").text(input);
       $(".container article main").slideDown( "slow", function() {});
+      $(".container article aside").slideDown( "slow", function() {});
       $(".container article footer").slideDown( "slow", function() {});
       $(".container article section input").first().focus();
       $(".container article header .alert-danger").remove();
@@ -59,6 +60,9 @@ $(document).ready(function(){
   $(".container article main").slideUp( "fast", function() {});
 
   $(".container article footer").slideUp( "fast", function() {});
+
+  $(".container article aside").slideUp( "fast", function() {});
+
 
   $(".container article header button").click( function(){
     questionSubmit();
@@ -144,7 +148,7 @@ $(document).ready(function(){
       }).then(function(data){
         var admin_link = data.admin;
         var voting_link =data.user;
-        var linkshtml = `<div class="links"><a href="/polls/${admin_link}/results">Admin Link</a>
+        var linkshtml = `<div class="links"><a href="/polls/admin/${admin_link}/results">Admin Link</a>
         <a href="/polls/${voting_link}">Voter Link</a></div>`;
         $(".container article header").remove();
         $(".container article main").remove();
