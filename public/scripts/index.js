@@ -46,7 +46,6 @@ $(document).ready(function(){
   });
 
   $(".container article main").keydown("input", function(event) {
-    console.log("pressed")
       if (event.keyCode === 13) {
         $(".container article footer .form button").first().click();
       }
@@ -98,6 +97,13 @@ $(document).ready(function(){
       method: 'POST',
       data: data,
       }).then(function(data){
+        var admin_link = data.admin;
+        var voting_link =data.user;
+        var linkshtml = `<div class="links"><a href="/polls/${admin_link}">Admin Link</a><a href="/polls/${voting_link}">Voter Link</a></div>`
+        $(".container article header").remove();
+        $(".container article main").remove();
+        $(".container article footer").remove();
+        $(".container article").prepend(linkshtml);
         console.log(data);
       }).catch(function(err){
           console.log("Can't get links");

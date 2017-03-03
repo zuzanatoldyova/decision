@@ -25,6 +25,18 @@ $primary-contrast: #E0FFFF;
     border-width: 5px;
     border-color: lighten( $primary-color, 10% );
   }
+  .links {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 5%;
+    margin-right: 5%;
+    a {
+    color: lighten( $primary-color, 10% );
+    font-family: 'Russo One', sans-serif;
+    font-size: 1vw;
+    }
+  }
   article {
     margin-top: 2%;
   }
