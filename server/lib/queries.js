@@ -42,11 +42,8 @@ module.exports = {
   },
 
   insertAnswer: (data, done) => {
-    knex('anwers')
-    .insert({
-      choice_id: data.choice_id,
-      points: data.points
-    })
+    knex('answers')
+    .insert(data)
     .then(done)
     .catch((err) => {
       console.log(err);
@@ -64,14 +61,44 @@ module.exports = {
     });
   },
 
-  findChoices: (key, done) => {
+  findChoices: (pollId, done) => {
     knex('choices')
     .select()
-    .where('poll_id', key)
+    .where('poll_id', pollId)
     .then(done)
     .catch((err) => {
       console.log(err);
     });
-  }
+  },
 
+  findChoice: (choiceId, done) => {
+    knex('choices')
+    .select()
+    .where('id', choice_id)
+    .then(done)
+    .catch((err) => {
+      console.log(err);
+    });
+  },
+
+  findChoicesResults: (pollId, done) => {
+    knex('choices')
+    .select('id')
+    .where('poll_id', pollId)
+    // .then(done);
+    .then(function (data) {
+      let choicesIds = data.map(x => {
+        return x.id;
+      });
+      knex('answers')
+      .leftJoin('choices', function() {
+        this.on('answers.choice_id', '=', 'choices.id');
+      })
+      .select('choice_id', 'choice_title', 'description')
+      .sum('points')
+      .whereIn('choice_id', choicesIds)
+      .groupBy('choice_id', 'choice_title', 'description')
+      .then(done);
+    });
+  }
 };
