@@ -50,11 +50,20 @@ module.exports = {
     });
   },
 
-  findPoll: (key, done) => {
+  findPollUser: (key, done) => {
     knex('polls')
     .select()
     .where('user_key', key)
-    .orWhere('admin_key', key)
+    .then(done)
+    .catch((err) => {
+      console.log(err);
+    });
+  },
+
+  findPollAdmin: (key, done) => {
+    knex('polls')
+    .select()
+    .where('admin_key', key)
     .then(done)
     .catch((err) => {
       console.log(err);
@@ -99,6 +108,16 @@ module.exports = {
       .whereIn('choice_id', choicesIds)
       .groupBy('choice_id', 'choice_title', 'description')
       .then(done);
+    });
+  },
+
+  updatePollClose: (pollId, data, done) => {
+    knex('polls')
+    .where('id', pollId)
+    .update(data)
+    .then(done)
+    .catch((err) => {
+      console.log(err);
     });
   }
 };
