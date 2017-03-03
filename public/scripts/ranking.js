@@ -4,7 +4,6 @@ $(document).ready(function () {
   setOptionsContainerHeight();
 
   $(window).resize(setOptionsContainerHeight);
-
 });
 
 function setOptionsContainerHeight() {
