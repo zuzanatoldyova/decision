@@ -4,7 +4,8 @@ const adminRoutes   = require('express').Router();
 const queries = require('../lib/queries');
 
 module.exports = (queries) => {
-  adminRoutes.get('/:id/results', (req, res) => {
+  adminRoutes.get('/:id', (req, res) => {
+    // TODO check if id exists
     console.log('Get results id:', req.params.id);
     queries.findPollAdmin(req.params.id, (result) => {
       let open = result[0].open;
@@ -14,7 +15,8 @@ module.exports = (queries) => {
         let data = {
           open,
           question,
-          results
+          results,
+          email
         };
         res.render("../../views/results", data);
 
@@ -23,6 +25,7 @@ module.exports = (queries) => {
   });
 
   adminRoutes.put('/:id', (req, res) => {
+    // TODO check if id exists
     console.log('Request for update ', req.body);
     console.log('Get update poll adminkey: ', req.params.id);
     queries.findPollAdmin(req.params.id, (poll) => {

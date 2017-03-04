@@ -1,10 +1,12 @@
 "use strict";
 
 // Basic express setup:
+require('dotenv').config();
 const PORT          = process.env.PORT || 8080;
 const express       = require("express");
 const bodyParser    = require("body-parser");
 const app           = express();
+const API_KEY       = process.env.API_KEY;
 
 app.set("view engine", "ejs");
 

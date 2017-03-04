@@ -3,7 +3,9 @@
 const pollsRoutes   = require('express').Router();
 const queries = require('../lib/queries');
 const md5 = require('md5');
-const email = require('../lib/email');
+const emailUtil = require('../lib/email');
+const linkPrependUser = 'http://localhost:8080/polls/';
+const linkPrependAdmin = 'http://localhost:8080/admin/polls/';
 
 function createKey(id){
   let admin = md5(id);
@@ -13,6 +15,7 @@ function createKey(id){
 
 module.exports = (queries) => {
   pollsRoutes.post('/', (req, res) => {
+    console.log(req.body.email_invite);
     // console.log('Body of request: ', req.body);
     queries.insertUser({email: req.body.email}, (id) => {
       let keys = createKey(id.join(''));
@@ -22,18 +25,24 @@ module.exports = (queries) => {
         end_date: req.body.end_date,
         user_key: keys[0],
         admin_key: keys[1]
-      }, (keys) => {
-        let poll_id = keys[0].id;
+      }, (result) => {
+        let poll_id = result[0].id;
         let data = {
-          user: keys[0].user_key,
-          admin: keys[0].admin_key
+          user: linkPrependUser + result[0].user_key,
+          admin: linkPrependAdmin + result[0].admin_key
         };
         for (let choice of req.body.choices) {
           choice.poll_id = poll_id;
         }
         queries.insertChoice(req.body.choices, () => {
+          // TODO change to actual user
           let recipient = 'zuzana.toldyova@gmail.com';
-          email.sendMailCreated(recipient, data);
+          emailUtil.sendMailCreated(recipient, data);
+          // if (req.body.email_invite) {
+          //   req.body.email_invite.forEach(invite => {
+          //     emailUtil.sendMailInvite(req.body.email, invite, data.user);
+          //   });
+          // }
           console.log('response from post POLLS', data);
           res.status(201).json(data);
         });
@@ -60,11 +69,23 @@ module.exports = (queries) => {
 
   pollsRoutes.post('/:id', (req, res) => {
     // TODO: check if id exists
-    console.log(req.body.answers);
-    queries.insertAnswer(req.body.answers, () => {
-      // TODO: sned an email to the admin
-      res.status(201).send();
+    queries.findPollUser(req.params.id, (result) => {
+      console.log(result);
+      let data = {
+        user: linkPrependUser + result[0].user_key,
+        admin: linkPrependAdmin + result[0].admin_key
+      };
+      let email = result[0].email;
+      // console.log(req.body.answers);
+      queries.insertAnswer(req.body.answers, () => {
+      // TODO: change to actual user
+        let recipient = 'zuzana.toldyova@gmail.com';
+        emailUtil.sendMailVoted(recipient, data);
+        res.status(201).send();
+      });
+
     });
+
   });
 
   return pollsRoutes;

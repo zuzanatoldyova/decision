@@ -52,6 +52,9 @@ module.exports = {
 
   findPollUser: (key, done) => {
     knex('polls')
+    .leftJoin('users', function() {
+      this.on('polls.user_id', '=', 'users.id');
+    })
     .select()
     .where('user_key', key)
     .then(done)
@@ -62,6 +65,9 @@ module.exports = {
 
   findPollAdmin: (key, done) => {
     knex('polls')
+    .leftJoin('users', function() {
+      this.on('polls.user_id', '=', 'users.id');
+    })
     .select()
     .where('admin_key', key)
     .then(done)
@@ -94,7 +100,6 @@ module.exports = {
     knex('choices')
     .select('id')
     .where('poll_id', pollId)
-    // .then(done);
     .then(function (data) {
       let choicesIds = data.map(x => {
         return x.id;
