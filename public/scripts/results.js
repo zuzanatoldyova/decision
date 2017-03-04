@@ -5,9 +5,7 @@ $(document).ready(function(){
   var winnerValue = 0;
   $(".container footer .btn-info").click(function(){
     $(".container footer .btn-info").remove();
-<<<<<<< HEAD
   });
-=======
   })
 
   for(let i = 1; i <= index; i++){
@@ -20,5 +18,5 @@ $(document).ready(function(){
     console.log(test);
   }
   $(`tbody tr:nth-child(${winnerIndex})`).css("background-color", "yellow");
->>>>>>> master
+
 });
