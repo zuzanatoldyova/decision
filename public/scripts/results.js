@@ -3,8 +3,14 @@ $(document).ready(function(){
   var test;
   var winnerIndex = 0;
   var winnerValue = 0;
-  $(".container footer .btn-info").click(function(){
+  $(".container footer").click(".btn-info", function(){
+    var text = $(".container footer .btn-info").text();
     $(".container footer .btn-info").remove();
+    if (text === "Close Poll"){
+      $(".container footer").append(`<button class="btn btn-info">Open Poll</button>`);
+    } else {
+      $(".container footer").append(`<button class="btn btn-info">Close Poll</button>`);
+    }
   })
 
   for(let i = 1; i <= index; i++){
