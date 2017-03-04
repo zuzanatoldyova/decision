@@ -74,6 +74,13 @@ $(document).ready(function(){
       }
   });
 
+
+  $(".container .email textarea").keydown(function(event) {
+      if (event.keyCode === 13) {
+        $(".container article footer input").focus();
+      }
+  });
+
   $(".container article main").keydown("input", function(event) {
       if (event.keyCode === 13) {
         $(".container article footer .form button").first().click();
@@ -106,7 +113,9 @@ $(document).ready(function(){
     var descriptions = [];
     var data = {};
     var count = 0;
-    var email = $(`.container article footer input`).val();
+    var invites = $(".container .email textarea").val();
+    var validEmails = [];
+    var email = $(".container article footer input").val();
     if(!validateEmail(email)){
       if(!$(".container article header .alert-danger").length){
         $(".container article header").append(`<div class="alert alert-danger" role="alert">
@@ -137,8 +146,17 @@ $(document).ready(function(){
       }
       return;
     }
+    invites = invites.replace(/\s+/g, "").split(",");
+
+    for(let i = 0; i < invites.length; i++){
+      if(validateEmail(invites[i])){
+        validEmails.push(invites[i]);
+      }
+    }
+    $(".container article header .alert-danger").remove();
     data = { "email": email,
       'question': $(".container article header a").text(),
+      'email_invite': validEmails,
       'choices': choices
     }
       $.ajax({
@@ -150,7 +168,6 @@ $(document).ready(function(){
         var voting_link =data.user;
         var linkshtml = `<div class="links"><a href="/admin/polls/${admin_link}/results">Admin Link</a>
         <a href="/polls/${voting_link}">Voter Link</a></div>`;
-        $(".container article header .alert-danger").remove();
         $(".container article header").remove();
         $(".container article main").remove();
         $(".container article aside").remove();
