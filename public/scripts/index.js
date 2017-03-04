@@ -175,8 +175,8 @@ $(document).ready(function(){
       }).then(function(data){
         var admin_link = data.admin;
         var voting_link =data.user;
-        var linkshtml = `<div class="links"><a href="/admin/polls/${admin_link}/results">Admin Link</a>
-        <a href="/polls/${voting_link}">Voter Link</a></div>`;
+        var linkshtml = `<div class="links"><a href="${admin_link}">Admin Link</a>
+        <a href="${voting_link}">Voter Link</a></div>`;
         $(".container article header").remove();
         $(".container article main").remove();
         $(".container article aside").remove();
