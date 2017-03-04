@@ -15,8 +15,7 @@ module.exports = (queries) => {
         let data = {
           open,
           question,
-          results,
-          email
+          results
         };
         res.render("../../views/results", data);
 
