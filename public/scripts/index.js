@@ -1,7 +1,7 @@
 function questionSubmit(){
     var input = $(".container article header input").val();
     if (input.length < 140 && input.replace(/\s+/g, "").length !== 0){
-      $(".container article header input").remove();
+      $(".container article header .input-group").remove();
       $(".container article header span").remove();
       $(".container article header a").text(input);
       $(".container article main").slideDown( "slow", function() {});
@@ -12,18 +12,18 @@ function questionSubmit(){
     }
     if (input.length >= 140){
       $(".container article .input-group input").css("border-color", "red");
-      if(!$(".container article header .alert-danger").length){
-        $(".container article header").append(`<div class="alert alert-danger" role="alert">
+      $(".container article header .alert-danger").remove();
+      $(".container article header").append(`<div class="alert alert-danger" role="alert">
   <a>Max Characters of 140</a></div>`);
-      }
+      window.scrollTo(0, 0);
     }
     if (input.replace(/\s+/g, "").length === 0){
       $(".container article .input-group input").css("border-color", "red");
-      if(!$(".container article header .alert-danger").length){
-        $(".container article header").append(`<div class="alert alert-danger" role="alert">
+      $(".container article header .alert-danger").remove();
+      $(".container article header").append(`<div class="alert alert-danger" role="alert">
           <a>Please input some values</a>
           </div>`);
-      }
+      window.scrollTo(0, 0);
     }
 }
 
@@ -39,7 +39,11 @@ function hasDuplicates(array) {
     return false;
 }
 
-
+$.fn.focusScrolling = function(){
+  var pos = this.position();
+  this.focus();
+  window.scrollTo(pos.left, pos.top);
+};
 
 function validateEmail(email) {
   var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -57,11 +61,12 @@ $(document).ready(function(){
             <textarea class="form-control" rows="3"></textarea>
           </div>
           </section>`;
-  $(".container article main").slideUp( "fast", function() {});
+  $(".container article header input").focus();
+  $(".container article main").slideUp( "fast");
 
-  $(".container article footer").slideUp( "fast", function() {});
+  $(".container article footer").slideUp( "fast");
 
-  $(".container article aside").slideUp( "fast", function() {});
+  $(".container article aside").slideUp( "fast");
 
 
   $(".container article header button").click( function(){
@@ -101,7 +106,7 @@ $(document).ready(function(){
 
   $(".container article footer .form button").first().click(function(){
     $(".container article main").append(newSection);
-    $(".container article section input").last().focus();
+    $(".container article section input").last().focusScrolling();
   });
 
   $(".container article footer .submit button").click(function(){
@@ -117,11 +122,11 @@ $(document).ready(function(){
     var validEmails = [];
     var email = $(".container article footer input").val();
     if(!validateEmail(email)){
-      if(!$(".container article header .alert-danger").length){
+        $(".container article header .alert-danger").remove();
         $(".container article header").append(`<div class="alert alert-danger" role="alert">
           <a>Enter Valid Email</a>
           </div>`);
-      }
+        window.scrollTo(0, 0);
       return;
     }
     for(let i = 1; i <= choicesLength; i++){
@@ -129,7 +134,11 @@ $(document).ready(function(){
       description = $(`.container article main section:nth-child(${i}) textarea`).val();
       if(title.replace(/\s+/g, "").length === 0){
         if(description.replace(/\s+/g, "").length !== 0){
-          alert("You are missing a title");
+          $(".container article header .alert-danger").remove();
+          $(".container article header").append(`<div class="alert alert-danger" role="alert">
+          <a>You are mising a Title</a>
+          </div>`);
+          window.scrollTo(0, 0);
           return;
         }
         count++;
@@ -139,11 +148,11 @@ $(document).ready(function(){
       }
     }
     if(hasDuplicates(titles)){
-      if(!$(".container article header .alert-danger").length){
-        $(".container article header").append(`<div class="alert alert-danger" role="alert">
+      $(".container article header .alert-danger").remove();
+      $(".container article header").append(`<div class="alert alert-danger" role="alert">
           <a>You have duplicate inputs</a>
           </div>`);
-      }
+      window.scrollTo(0, 0);
       return;
     }
     invites = invites.replace(/\s+/g, "").split(",");

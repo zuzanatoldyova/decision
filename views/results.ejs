@@ -45,7 +45,7 @@
           <% for(let i = 0; i < results.length; i++) {%>
               <tr>
                 <th class="value"><%=i + 1%></th>
-                <td><%=results[i].choice_title%><% if(results[i].description{%> - <% }%><%=results[i].description%></td>
+                <td><%=results[i].choice_title%><% if(results[i].description){%> - <% }%><%=results[i].description%></td>
                 <td class="points"><%=results[i].sum%></td>
               </tr>
           <% } %>
