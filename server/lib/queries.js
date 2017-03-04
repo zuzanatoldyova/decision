@@ -34,7 +34,7 @@ module.exports = {
 
   insertChoice: (data, done) => {
     knex('choices')
-    .insert(data)
+    .insert(data, 'id')
     .then(done)
     .catch((err) => {
       console.log(err);
@@ -52,9 +52,9 @@ module.exports = {
 
   findPollUser: (key, done) => {
     knex('polls')
-    .leftJoin('users', function() {
-      this.on('polls.user_id', '=', 'users.id');
-    })
+    // .leftJoin('users', function() {
+    //   this.on('polls.user_id', '=', 'users.id');
+    // })
     .select()
     .where('user_key', key)
     .then(done)
@@ -65,9 +65,9 @@ module.exports = {
 
   findPollAdmin: (key, done) => {
     knex('polls')
-    .leftJoin('users', function() {
-      this.on('polls.user_id', '=', 'users.id');
-    })
+    // .leftJoin('users', function() {
+    //   this.on('polls.user_id', '=', 'users.id');
+    // })
     .select()
     .where('admin_key', key)
     .then(done)
