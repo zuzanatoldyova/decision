@@ -2,7 +2,7 @@
 <html lang="en">
 <%- include('partials/head') %>
   <body>
-    <script type="text/javascript" src="/scripts/ranking.js"></script>
+    <script type="text/javascript" src="../scripts/ranking.js"></script>
 <%- include('partials/header') %>
     <div class="container">
       <h2><%= question %></h2>
@@ -21,8 +21,11 @@
                 <%- include( 'partials/pollChoice', choice ); %>
               <% }); %>
             </div>
+            <footer class="submit-button">
+            <button class="btn btn-default" id="submit-ranking">Submit</button>
+            </footer>
           </div>
-          <button class="btn btn-default btn-lg" id="submit-ranking">Submit Your Ranking</button>
+          
         <!-- </div> --><!-- /.col -->
       <!-- </div> --><!-- /.row -->
     </div><!-- /.container -->

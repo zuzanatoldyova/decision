@@ -26,7 +26,7 @@ function onRankedElementsChanged(event, ui) {
 }
 
 function registerSubmitRanking() {
-  $("#submit-ranking").on('click', function (event) {
+  $("footer .submit-button ").on('click', function (event) {
     onSubmitRanking(event);
   });
 }
@@ -37,19 +37,19 @@ function onSubmitRanking(event) {
   var $rankedOptions = $("#ranked-options");
   var $children = $rankedOptions.children();
   var totalCount = 0;
-  var rankedChoices = [];
+  var answers = [];
   $children.each(function (index) {
     totalCount++;
     var curRank = index + 1;
-    var curID = Number($(this).attr("id"));
-    rankedChoices.push({
+    var curID = Number($(this).attr("data-id"));
+    answers.push({
       id: curID,
-      rank: curRank
+      points: curRank
     });
   });
   var bordaCount = totalCount;
-  for (var i = 0; i < rankedChoices.length; i++) {
-    rankedChoices[i]["borda"] = bordaCount;
+  for (var i = 0; i < answers.length; i++) {
+    answers[i]["borda"] = bordaCount;
     bordaCount--;
   }
 
@@ -57,7 +57,7 @@ function onSubmitRanking(event) {
       method: "POST",
       url: $(location).attr('href'),
       data: {
-        rankedChoices
+        answers
       }
     })
     .done(function (msg) {
