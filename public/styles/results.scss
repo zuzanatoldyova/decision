@@ -38,6 +38,9 @@ body {
       font-family: 'Russo One', sans-serif;
       font-size: 2vw;
     }
+    header a:hover {
+      text-decoration: none;
+    }
   }
   .table-inverse th, td{
     border-radius: 5px;
