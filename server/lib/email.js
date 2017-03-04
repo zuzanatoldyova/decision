@@ -1,4 +1,5 @@
 const Mailgun       = require('mailgun').Mailgun;
+const API_KEY       = process.env.API_KEY;
 const mailgun       = new Mailgun(API_KEY);
 const fromWho      = 'dteam@email.com';
 
