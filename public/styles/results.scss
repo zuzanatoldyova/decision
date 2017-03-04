@@ -1,6 +1,11 @@
 $primary-color: #118415;
 $primary-contrast: #E0FFFF;
 
+body {
+    background-image:    url(/3.jpg);
+    background-repeat:   repeat;
+}
+
 .page-header {
   background-color: $primary-color;
   height: 150px;
@@ -20,8 +25,7 @@ $primary-contrast: #E0FFFF;
   margin: auto;
   width: 60%;
   article {
-    background-color: $primary-contrast;
-    border-radius: 8px;
+    background-color: white;
     border-style: solid;
     border-width: 1px;
     border-color: grey;
