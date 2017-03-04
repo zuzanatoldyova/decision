@@ -1,7 +1,7 @@
 function questionSubmit(){
     var input = $(".container article header input").val();
     if (input.length < 140 && input.replace(/\s+/g, "").length !== 0){
-      $(".container article header input").remove();
+      $(".container article header .input-group").remove();
       $(".container article header span").remove();
       $(".container article header a").text(input);
       $(".container article main").slideDown( "slow", function() {});
@@ -12,18 +12,18 @@ function questionSubmit(){
     }
     if (input.length >= 140){
       $(".container article .input-group input").css("border-color", "red");
-      if(!$(".container article header .alert-danger").length){
-        $(".container article header").append(`<div class="alert alert-danger" role="alert">
+      $(".container article header .alert-danger").remove();
+      $(".container article header").append(`<div class="alert alert-danger" role="alert">
   <a>Max Characters of 140</a></div>`);
-      }
+      window.scrollTo(0, 0);
     }
     if (input.replace(/\s+/g, "").length === 0){
       $(".container article .input-group input").css("border-color", "red");
-      if(!$(".container article header .alert-danger").length){
-        $(".container article header").append(`<div class="alert alert-danger" role="alert">
+      $(".container article header .alert-danger").remove();
+      $(".container article header").append(`<div class="alert alert-danger" role="alert">
           <a>Please input some values</a>
           </div>`);
-      }
+      window.scrollTo(0, 0);
     }
 }
 
@@ -39,15 +39,28 @@ function hasDuplicates(array) {
     return false;
 }
 
-
+$.fn.focusScrolling = function(){
+  var pos = this.position();
+  this.focus();
+  window.scrollTo(pos.left, pos.top);
+};
 
 function validateEmail(email) {
   var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(email);
 }
 
-$(document).ready(function(){
-  var newSection = `<section class="input">
+function intialState(){
+  $(".container article header input").focus();
+  $(".container article main").slideUp( "fast");
+
+  $(".container article footer").slideUp( "fast");
+
+  $(".container article aside").slideUp( "fast");
+}
+
+function enterProgression(){
+    var newSection = `<section class="input">
           <div class="form-group">
             <label>Title</label>
             <input class="form-control" placeholder="Title">
@@ -57,20 +70,20 @@ $(document).ready(function(){
             <textarea class="form-control" rows="3"></textarea>
           </div>
           </section>`;
-  $(".container article main").slideUp( "fast", function() {});
-
-  $(".container article footer").slideUp( "fast", function() {});
-
-  $(".container article aside").slideUp( "fast", function() {});
-
-
-  $(".container article header button").click( function(){
-    questionSubmit();
-  });
-
   $(".container article header input").keydown(function(event) {
       if (event.keyCode === 13) {
         $(".container article header button").click();
+      }
+  });
+
+  $(".container .email textarea").keydown(function(event) {
+      if (event.keyCode === 13) {
+        $(".container article footer input").focus();
+      }
+  });
+  $(".container .phone textarea").keydown(function(event) {
+      if (event.keyCode === 13) {
+        $(".container .email textarea").focus();
       }
   });
 
@@ -94,8 +107,47 @@ $(document).ready(function(){
 
   $(".container article footer .form button").first().click(function(){
     $(".container article main").append(newSection);
-    $(".container article section input").last().focus();
+    $(".container article section input").last().focusScrolling();
   });
+}
+
+function checkValidPhone(invitesPhones) {
+  var result = [];
+  for(let i = 0; i < invitesPhones.length; i++){
+    if(!isNaN(invitesPhones[i])){
+      if(invitesPhones[i].length === 10){
+        result.push(Number(invitesPhones[i])+10000000000);
+      }
+      if(invitesPhones[i].length === 11){
+        if(Math.floor((Number(invitesPhones[i])/10000000000))=== 1){
+          result.push(Number(invitesPhones[i]));
+        }
+      }
+    }
+  };
+  return result;
+}
+
+function checkValidEmails(invites){
+  var result = [];
+  for(let i = 0; i < invites.length; i++){
+    if(validateEmail(invites[i])){
+      result.push(invites[i]);
+    }
+  }
+  return result;
+}
+
+$(document).ready(function(){
+
+  intialState();
+
+  $(".container article header button").click( function(){
+    questionSubmit();
+  });
+
+  enterProgression();
+
 
   $(".container article footer .submit button").click(function(){
     var choicesLength = $(".container article main section").length;
@@ -106,13 +158,18 @@ $(document).ready(function(){
     var descriptions = [];
     var data = {};
     var count = 0;
-    var email = $(`.container article footer input`).val();
+    var invites = $(".container .email textarea").val();
+    var validEmails;
+    var email = $(".container article footer input").val();
+    var invitesPhones = $(".container .phone textarea").val();
+    var validNumbers;
+
     if(!validateEmail(email)){
-      if(!$(".container article header .alert-danger").length){
+        $(".container article header .alert-danger").remove();
         $(".container article header").append(`<div class="alert alert-danger" role="alert">
           <a>Enter Valid Email</a>
           </div>`);
-      }
+        window.scrollTo(0, 0);
       return;
     }
     for(let i = 1; i <= choicesLength; i++){
@@ -120,7 +177,11 @@ $(document).ready(function(){
       description = $(`.container article main section:nth-child(${i}) textarea`).val();
       if(title.replace(/\s+/g, "").length === 0){
         if(description.replace(/\s+/g, "").length !== 0){
-          alert("You are missing a title");
+          $(".container article header .alert-danger").remove();
+          $(".container article header").append(`<div class="alert alert-danger" role="alert">
+          <a>You are mising a Title</a>
+          </div>`);
+          window.scrollTo(0, 0);
           return;
         }
         count++;
@@ -130,17 +191,30 @@ $(document).ready(function(){
       }
     }
     if(hasDuplicates(titles)){
-      if(!$(".container article header .alert-danger").length){
-        $(".container article header").append(`<div class="alert alert-danger" role="alert">
+      $(".container article header .alert-danger").remove();
+      $(".container article header").append(`<div class="alert alert-danger" role="alert">
           <a>You have duplicate inputs</a>
           </div>`);
-      }
+      window.scrollTo(0, 0);
       return;
     }
+    invites = invites.replace(/\s+/g, "").split(",");
+
+    validEmails = checkValidEmails(invites);
+
+    invitesPhones = invitesPhones.replace(/\s+/g, "").replace(/-/g, "").split(",");
+
+    validNumbers = checkValidPhone(invitesPhones);
+
+    $(".container article header .alert-danger").remove();
+
     data = { "email": email,
       'question': $(".container article header a").text(),
+      'email_invite': validEmails,
+      'sms_invite': validNumbers,
       'choices': choices
     }
+    console.log(data);
       $.ajax({
       url: '/polls',
       method: 'POST',
@@ -148,14 +222,15 @@ $(document).ready(function(){
       }).then(function(data){
         var admin_link = data.admin;
         var voting_link =data.user;
-        var linkshtml = `<div class="links"><a href="/polls/admin/${admin_link}/results">Admin Link</a>
-        <a href="/polls/${voting_link}">Voter Link</a></div>`;
+        var linkshtml = `<div class="links"><a href="${admin_link}">Admin Link</a>
+        <a href="${voting_link}">Voter Link</a></div>`;
         $(".container article header").remove();
         $(".container article main").remove();
+        $(".container article aside").remove();
         $(".container article footer").remove();
         $(".container article").prepend(linkshtml);
       }).catch(function(err){
           console.log("Can't get links");
       });
-  });
+   });
 });

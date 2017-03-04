@@ -22,7 +22,7 @@ $primary-contrast: #E0FFFF;
   article {
     border-radius: 8px;
     border-style: solid;
-    border-width: 2px;
+    border-width: 1px;
     border-color: grey;
   }
   .links {
@@ -47,6 +47,7 @@ $primary-contrast: #E0FFFF;
     }
   }
   article {
+    background-color: $primary-contrast;
     margin-top: 2%;
   }
   header .question {
@@ -62,11 +63,12 @@ $primary-contrast: #E0FFFF;
     border-bottom: groove lighten( $primary-color, 10% );
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: left;
     flex-wrap: wrap;
     margin-left: 5%;
     margin-right: 5%;
     section {
+      background-color: white;
       border-radius: 8px;
       border-style: groove;
       border-width: 5px;
@@ -94,11 +96,14 @@ $primary-contrast: #E0FFFF;
     }
   }
   aside {
+    color: lighten( $primary-color, 10% );
     border-bottom: groove lighten( $primary-color, 10% );
     margin-top: 1%;
     margin-left: 5%;
     margin-right: 5%;
-
+    p {
+      font-family: 'Russo One', sans-serif;
+    }
     div {
       margin-bottom: 1%;
     }

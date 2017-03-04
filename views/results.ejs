@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta Information -->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+    <title>D-Day Results</title>
+    <!-- External CSS -->
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+
+    <link href="https://fonts.googleapis.com/css?family=Russo+One" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="/styles/results.css" type="text/css" />
+
+    <!-- External JS -->
+    <script type="text/javascript" src="/vendor/jquery-3.1.1.js"></script>
+    <script type="text/javascript" src="/scripts/results.js"></script>
+
+  </head>
+
+  <body>
+    <nav class="page-header">
+      <p>D-Day Results</p>
+    </nav>
+
+    <!-- Page-specific (main) content here -->
+    <main class="container">
+       <article>
+       <header>
+        <div class="results">
+          <a><%=question%></a>
+        </div>
+        </header>
+        <main>
+        <table class="table table-inverse">
+          <thead>
+              <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Points</th>
+              </tr>
+            </thead>
+            <tbody>
+          <% for(let i = 0; i < results.length; i++) {%>
+              <tr>
+                <th class="value"><%=i + 1%></th>
+                <td><%=results[i].choice_title%><% if(results[i].description){%> - <% }%><%=results[i].description%></td>
+                <td class="points"><%=results[i].sum%></td>
+              </tr>
+          <% } %>
+            </tbody>
+          </table>
+        </main>
+        <footer>
+          <button class="btn btn-info">Close Poll</button>
+        </footer>
+      </article>
+    </main>
+
+  </body>
+</html>
