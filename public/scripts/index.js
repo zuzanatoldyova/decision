@@ -85,6 +85,11 @@ $(document).ready(function(){
         $(".container article footer input").focus();
       }
   });
+  $(".container .phone textarea").keydown(function(event) {
+      if (event.keyCode === 13) {
+        $(".container .email textarea").focus();
+      }
+  });
 
   $(".container article main").keydown("input", function(event) {
       if (event.keyCode === 13) {
@@ -121,6 +126,8 @@ $(document).ready(function(){
     var invites = $(".container .email textarea").val();
     var validEmails = [];
     var email = $(".container article footer input").val();
+    var invitesPhones = $(".container .phone textarea").val();
+    var validNumbers = [];
     if(!validateEmail(email)){
         $(".container article header .alert-danger").remove();
         $(".container article header").append(`<div class="alert alert-danger" role="alert">
@@ -162,10 +169,27 @@ $(document).ready(function(){
         validEmails.push(invites[i]);
       }
     }
+
+    invitesPhones = invitesPhones.replace(/\s+/g, "").replace(/-/g, "").split(",");
+
+    for(let i = 0; i < invitesPhones.length; i++){
+      if(!isNaN(invitesPhones[i])){
+        if(invitesPhones[i].length === 10){
+          validNumbers.push(Number(invitesPhones[i])+10000000000);
+        }
+        if(invitesPhones[i].length === 11){
+          if(Math.floor((Number(invitesPhones[i])/10000000000))=== 1){
+            validNumbers.push(Number(invitesPhones[i]));
+          }
+        }
+      }
+    };
+    console.log(validNumbers);
     $(".container article header .alert-danger").remove();
     data = { "email": email,
       'question': $(".container article header a").text(),
       'email_invite': validEmails,
+      'sms_invite': validNumbers,
       'choices': choices
     }
       $.ajax({
