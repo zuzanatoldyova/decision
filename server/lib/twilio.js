@@ -1,9 +1,9 @@
-const accountSid    = process.env.TWILIO_ACCOUNT_SID;
-const authToken     = process.env.TWILIO_AUTH_TOKEN;
-const twilioNumber  = process.env.TWILIO_NUMBER;
-const myNumber      = process.env.MY_NUMBER;
-const twilio        = require('twilio');
-const client        = new twilio.RestClient(accountSid, authToken);
+// const accountSid    = process.env.TWILIO_ACCOUNT_SID;
+// const authToken     = process.env.TWILIO_AUTH_TOKEN;
+// const twilioNumber  = process.env.TWILIO_NUMBER;
+// const myNumber      = process.env.MY_NUMBER;
+// const twilio        = require('twilio');
+// const client        = new twilio.RestClient(accountSid, authToken);
 
 function sendSmsInvite(user, link, recipient = myNumber) {
   client.messages.create({
