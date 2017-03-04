@@ -26,7 +26,8 @@ function onRankedElementsChanged(event, ui) {
 }
 
 function registerSubmitRanking() {
-  $("footer .submit-button ").on('click', function (event) {
+  $("#submit-ranking").on('click', function (event) {
+    console.log("pressed button");
     onSubmitRanking(event);
   });
 }
@@ -43,34 +44,61 @@ function onSubmitRanking(event) {
     var curRank = index + 1;
     var curID = Number($(this).attr("data-id"));
     answers.push({
-      id: curID,
-      points: curRank
+      choice_id: curID
+      // not needed for the database
+      // points: curRank
     });
   });
   var bordaCount = totalCount;
   for (var i = 0; i < answers.length; i++) {
-    answers[i]["borda"] = bordaCount;
+    answers[i]["points"] = bordaCount;
     bordaCount--;
   }
+  console.log($(location).attr('href'));
+  // $(".container").empty();
 
+
+let id = $('.container .droptrue').attr('data-id');
   $.ajax({
-      method: "POST",
-      url: $(location).attr('href'),
-      data: {
-        answers
-      }
-    })
-    .done(function (msg) {
-      $('<span class="emphasize" style="margin-bottom: 1em;">Thank you for taking the poll!</span>').replaceAll('#ranked-options').css('text-align', 'center');
-      $('#submit-ranking').remove();
-      $('.section-container.options header p.lead').remove();
-      $('.section-container.options header h3').text('Results Submitted');
-      $('<button>')
-        .addClass('btn btn-default btn-lg')
-        .text('Make a New Poll')
-        .appendTo($('<a>').attr('href', '/').appendTo('.section-container.options'));
-      $('.section-container.options').css('text-align', 'center');
-      setOptionsContainerHeight();
-    })
-    .fail(function (err) {});
+    method: "POST",
+    // url: $(location).attr('href')
+    url: `/polls/${id}`,
+    data: {
+      answers
+    },
+    success: function (success) {
+      event.preventDefault();
+      $('.container').empty();
+      $('.error-notice').slideUp(function () {
+        $('.success-notice').slideDown();
+      // $('<span class="emphasize" style="margin-bottom: 1em;">Thank you for taking the poll!</span>').replaceAll('#ranked-options').css('text-align', 'center');
+      // $('#submit-ranking').remove();
+      // $('.section-container.options header p.lead').remove();
+      // $('.section-container.options header h3').text('Results Submitted');
+
+      });
+    },
+    error: function (error) {
+      event.preventDefault();
+      console.log(error);
+      $('.error-notice').slideUp(function () {
+        $('.error-notice').slideDown();
+      });
+    }
+  })
+
+  // .done(function (msg) {
+  // $('<span class="emphasize" style="margin-bottom: 1em;">Thank you for taking the poll!</span>').replaceAll('#ranked-options').css('text-align', 'center');
+  // $('#submit-ranking').remove();
+  // $('.section-container.options header p.lead').remove();
+  // $('.section-container.options header h3').text('Results Submitted');
+  // $('<button>')
+  //   .addClass('btn btn-default')
+  //   .text('Make a New Poll')
+  //   .appendTo($('<a>').attr('href', '/').appendTo('.section-container.options'));
+  // $('.section-container.options').css('text-align', 'center');
+  // setOptionsContainerHeight();
+  // })
+  // .fail(function (err) {});
+  ;
 }

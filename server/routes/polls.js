@@ -46,19 +46,17 @@ module.exports = (queries) => {
       console.log(result);
       let pollId = result[0].id;
       let question = result[0].question;
-      // let email = result[0].email;
-      // let choice_title = result[0].choices.choice_title;
-      // let data_id = result[0].choices.id;
-      // let description = result[0].choices.description;
+      let email = result[0].email;
+
       queries.findChoices(pollId, (choices) => {
-        let data = {"question":"sport","choices":[{"id":124,"poll_id":56,"choice_title":"tennis","description":""},{"id":125,"poll_id":56,"choice_title":"soccer","description":""}]}
-        // {
-        //   email,
-        //   question,
-        //   choice_title,
-        //   data_id, 
-        //   choices
-        // };
+        let data = 
+        // {"id":"25daad3d9e60b45043a70c4ab7d3b1c6","question":"sport","choices":[{"id":124,"poll_id":56,"choice_title":"tennis","description":""},{"id":125,"poll_id":56,"choice_title":"soccer","description":""}]}
+        {
+          id : pollId,
+          email,
+          question,
+          choices
+        };
         console.log(data);
         res.render('../../public/views/rankpoll', data);
         // res.status(201).json(data);
@@ -67,11 +65,11 @@ module.exports = (queries) => {
     });
   });
 
-  pollsRoutes.put('/:id', (req, res) => {
+  pollsRoutes.post('/:id', (req, res) => {
     console.log(req.body.answers);
     queries.insertAnswer(req.body.answers, () => {
       // TODO: sned an email to the admin
-      res.status(201).send();
+      res.status(201).render('../../public/views/poll_taken');
     });
   });
 

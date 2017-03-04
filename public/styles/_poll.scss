@@ -1,9 +1,9 @@
 $primary_color: #118415;
-$primary-contrast:  #118415;
+$primary-contrast: #118415;
 $dropareas-color: lighten($primary_color, 10%);
 $maintext-color: lighten($primary_color, 10%);
-$font_headers: 'Russo One', sans-serif;
-
+$font_headers: 'Russo One',
+sans-serif;
 @mixin shadowing() {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 0 3px rgba(0, 0, 0, 0.2);
 }
@@ -15,23 +15,19 @@ $font_headers: 'Russo One', sans-serif;
     background-color: #fff;
     border: 1px solid #ccc;
     @include shadowing();
-
     &:hover {
       cursor: -webkit-grab;
       cursor: -moz-grab;
       cursor: grab;
     }
-
     &:active {
       cursor: -webkit-grabbing;
       cursor: -moz-grabbing;
       cursor: grabbing;
     }
-
     .col-xs-2 {
       text-align: right;
     }
-
     span {
       font-family: $font_headers;
       font-size: 2em;
@@ -44,22 +40,25 @@ $font_headers: 'Russo One', sans-serif;
   padding: 1.5em 1.5em 0 1.5em;
   margin-bottom: 2em;
   @include shadowing();
-
   header {
     text-align: center;
     margin: 0 0 2em;
     border-bottom: 1px solid $dropareas-color;
     padding: 1em 0 2em;
-    h1, h2, h3, h4, h5, h6, p {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
       margin: 0;
     }
   }
-
   &.options {
     background-color: $primary-contrast;
     padding-bottom: 1.5em;
     color: #fff;
-
     header {
       border-color: $primary_color;
     }
@@ -67,5 +66,22 @@ $font_headers: 'Russo One', sans-serif;
 }
 
 footer.submit-button {
-    margin: 2% 5% 1% 0% !important;
+  margin: 2% 5% 1% 0% !important;
+}
+
+.notices p {
+  text-align: center;
+  background-color: white;
+  padding: 5px;
+  display: none;
+}
+
+.notices .success-notice {
+  border: 1px solid darkgreen;
+  color: #3c763d;
+}
+
+.notices .error-notice {
+  border: 1px solid red;
+  color: red;
 }

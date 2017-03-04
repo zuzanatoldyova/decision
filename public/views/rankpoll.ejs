@@ -1,34 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <%- include('partials/head') %>
+
   <body>
     <script type="text/javascript" src="../scripts/ranking.js"></script>
-<%- include('partials/header') %>
-    <div class="container">
-      <h2><%= question %></h2>
-      <p class="lead">Your friend at {=email} wants to know:<br>
-      <strong><%= question %></strong></p>
-      <!-- <div class="row"> -->
+    <%- include('partials/header') %>
+      <div class="container">
+        <h2>
+
+        </h2>
+        <p class="lead">Your friend at <%= email %> wants to know:<br>
+          <strong><%= question %></strong></p>
+        <!-- <div class="row"> -->
         <!-- <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3"> -->
-          <div class="section-container options">
-            <header>
-              <h3>Choices</h3>
-              <p class="lead">Click and drag to rank the choices</p>
-            </header>
-            <div class="droptrue" id="ranked-options">
-              <% choices.forEach((choice, index) => { %>
-                <% choice.rank = index + 1; %>
+        <div class="section-container options">
+          <header>
+            <p class="lead">Click and drag to rank the choices</p>
+          </header>
+          <div class="droptrue" id="ranked-options" data-id="<%= id %>" >
+            <% choices.forEach((choice, index) => { %>
+              <% choice.rank = index + 1; %>
                 <%- include( 'partials/pollChoice', choice ); %>
-              <% }); %>
-            </div>
-            <footer class="submit-button">
-            <button class="btn btn-default" id="submit-ranking">Submit</button>
-            </footer>
+                  <% }); %>
           </div>
-          
-        <!-- </div> --><!-- /.col -->
-      <!-- </div> --><!-- /.row -->
-    </div><!-- /.container -->
-    <%- include('partials/footer') %>
+          <footer class="submit-button">
+            <button class="btn btn-default" id="submit-ranking">Submit</button>
+            <div class='notices'>
+              <p class='success-notice'> passed <br>
+              <a class="btn btn-default" id="notices-button" href='/'>new poll</a>
+              </p>
+              <p class='error-notice'>error</p>
+            </div>
+          </footer>
+        </div>
+        <!-- </div> -->
+        <!-- /.col -->
+        <!-- </div> -->
+        <!-- /.row -->
+      </div>
+      <!-- /.container -->
+      <%- include('partials/footer') %>
   </body>
+
 </html>
