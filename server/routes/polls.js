@@ -38,11 +38,11 @@ module.exports = (queries) => {
           // TODO change to actual user
           let recipient = 'zuzana.toldyova@gmail.com';
           emailUtil.sendMailCreated(recipient, data);
-          // if (req.body.email_invite) {
-          //   req.body.email_invite.forEach(invite => {
-          //     emailUtil.sendMailInvite(req.body.email, invite, data.user);
-          //   });
-          // }
+          if (req.body.email_invite) {
+            req.body.email_invite.forEach(invite => {
+              emailUtil.sendMailInvite(req.body.email, invite, data.user);
+            });
+          }
           console.log('response from post POLLS', data);
           res.status(201).json(data);
         });
