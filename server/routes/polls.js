@@ -63,13 +63,16 @@ module.exports = (queries) => {
     queries.findPollUser(req.params.id, (result) => {
       let pollId = result[0].id;
       let question = result[0].question;
+      let email = "test@hotmail.com";
       queries.findChoices(pollId, (choices) => {
         let data = {
+          id : pollId,
           question,
+          email,
           choices
         };
         console.log(data);
-        res.status(201).json(data);
+        res.status(201).render('../../public/views/rankpoll', data);
       });
     });
   });
