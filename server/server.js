@@ -2,6 +2,11 @@
 
 // Basic express setup:
 require('dotenv').config();
+const twilio        = require('twilio');
+const accountSid    = process.env.TWILIO_ACCOUNT_SID;
+const authToken     = process.env.TWILIO_AUTH_TOKEN;
+const twilioNumber  = process.env.TWILIO_NUMBER;
+const client        = new twilio.RestClient(accountSid, authToken);
 const PORT          = process.env.PORT || 8080;
 const express       = require("express");
 const bodyParser    = require("body-parser");
@@ -20,6 +25,7 @@ app.use(sassMiddleware({
   outputStyle: 'compressed'
 }));
 
+
 const queries = require('./lib/queries.js');
 const pollsRoutes = require('./routes/polls.js');
 const adminRoutes = require('./routes/admin.js');
@@ -28,7 +34,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
-const settings = require("../settings"); // settings.json
+const settings = require("../settings");
 
 const knex = require('knex')({
   client: 'pg',
@@ -41,7 +47,6 @@ const knex = require('knex')({
     ssl      : settings.ssl
   }
 });
-
 
 
 app.use(express.static("../public"));
