@@ -63,10 +63,11 @@ module.exports = (queries) => {
     queries.findPollUser(req.params.id, (result) => {
       let pollId = result[0].id;
       let question = result[0].question;
+      let user_key = result[0].user_key;
       let email = "test@hotmail.com";
       queries.findChoices(pollId, (choices) => {
         let data = {
-          id : pollId,
+          id : user_key,
           question,
           email,
           choices
@@ -80,7 +81,7 @@ module.exports = (queries) => {
   pollsRoutes.post('/:id', (req, res) => {
     // TODO: check if id exists
     queries.findPollUser(req.params.id, (result) => {
-      console.log(result);
+      console.log('result of findpoll:', result);
       let data = {
         user: linkPrependUser + result[0].user_key,
         admin: linkPrependAdmin + result[0].admin_key
