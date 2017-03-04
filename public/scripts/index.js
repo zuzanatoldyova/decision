@@ -50,8 +50,17 @@ function validateEmail(email) {
   return re.test(email);
 }
 
-$(document).ready(function(){
-  var newSection = `<section class="input">
+function intialState(){
+  $(".container article header input").focus();
+  $(".container article main").slideUp( "fast");
+
+  $(".container article footer").slideUp( "fast");
+
+  $(".container article aside").slideUp( "fast");
+}
+
+function enterProgression(){
+    var newSection = `<section class="input">
           <div class="form-group">
             <label>Title</label>
             <input class="form-control" placeholder="Title">
@@ -61,28 +70,20 @@ $(document).ready(function(){
             <textarea class="form-control" rows="3"></textarea>
           </div>
           </section>`;
-  $(".container article header input").focus();
-  $(".container article main").slideUp( "fast");
-
-  $(".container article footer").slideUp( "fast");
-
-  $(".container article aside").slideUp( "fast");
-
-
-  $(".container article header button").click( function(){
-    questionSubmit();
-  });
-
   $(".container article header input").keydown(function(event) {
       if (event.keyCode === 13) {
         $(".container article header button").click();
       }
   });
 
-
   $(".container .email textarea").keydown(function(event) {
       if (event.keyCode === 13) {
         $(".container article footer input").focus();
+      }
+  });
+  $(".container .phone textarea").keydown(function(event) {
+      if (event.keyCode === 13) {
+        $(".container .email textarea").focus();
       }
   });
 
@@ -108,6 +109,45 @@ $(document).ready(function(){
     $(".container article main").append(newSection);
     $(".container article section input").last().focusScrolling();
   });
+}
+
+function checkValidPhone(invitesPhones) {
+  var result = [];
+  for(let i = 0; i < invitesPhones.length; i++){
+    if(!isNaN(invitesPhones[i])){
+      if(invitesPhones[i].length === 10){
+        result.push(Number(invitesPhones[i])+10000000000);
+      }
+      if(invitesPhones[i].length === 11){
+        if(Math.floor((Number(invitesPhones[i])/10000000000))=== 1){
+          result.push(Number(invitesPhones[i]));
+        }
+      }
+    }
+  };
+  return result;
+}
+
+function checkValidEmails(invites){
+  var result = [];
+  for(let i = 0; i < invites.length; i++){
+    if(validateEmail(invites[i])){
+      result.push(invites[i]);
+    }
+  }
+  return result;
+}
+
+$(document).ready(function(){
+
+  intialState();
+
+  $(".container article header button").click( function(){
+    questionSubmit();
+  });
+
+  enterProgression();
+
 
   $(".container article footer .submit button").click(function(){
     var choicesLength = $(".container article main section").length;
@@ -119,8 +159,11 @@ $(document).ready(function(){
     var data = {};
     var count = 0;
     var invites = $(".container .email textarea").val();
-    var validEmails = [];
+    var validEmails;
     var email = $(".container article footer input").val();
+    var invitesPhones = $(".container .phone textarea").val();
+    var validNumbers;
+
     if(!validateEmail(email)){
         $(".container article header .alert-danger").remove();
         $(".container article header").append(`<div class="alert alert-danger" role="alert">
@@ -157,17 +200,21 @@ $(document).ready(function(){
     }
     invites = invites.replace(/\s+/g, "").split(",");
 
-    for(let i = 0; i < invites.length; i++){
-      if(validateEmail(invites[i])){
-        validEmails.push(invites[i]);
-      }
-    }
+    validEmails = checkValidEmails(invites);
+
+    invitesPhones = invitesPhones.replace(/\s+/g, "").replace(/-/g, "").split(",");
+
+    validNumbers = checkValidPhone(invitesPhones);
+
     $(".container article header .alert-danger").remove();
+
     data = { "email": email,
       'question': $(".container article header a").text(),
       'email_invite': validEmails,
+      'sms_invite': validNumbers,
       'choices': choices
     }
+    console.log(data);
       $.ajax({
       url: '/polls',
       method: 'POST',
@@ -185,5 +232,5 @@ $(document).ready(function(){
       }).catch(function(err){
           console.log("Can't get links");
       });
-  });
+   });
 });
