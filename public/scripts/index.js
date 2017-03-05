@@ -1,4 +1,3 @@
-5 lines (209 sloc)  7.53 KB
 function questionSubmit(){
     var input = $(".container article header input").val();
     if (input.length < 140 && input.replace(/\s+/g, "").length !== 0){

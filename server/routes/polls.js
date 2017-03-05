@@ -84,7 +84,7 @@ module.exports = (queries) => {
             email
           };
           console.log(data);
-          res.status(201).json(data);
+          res.status(201).render('../../public/views/rankpoll', data);
         });
       }
     });
