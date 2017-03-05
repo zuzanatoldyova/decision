@@ -95,6 +95,7 @@ function onSubmitRanking(event) {
       $('<h2 class="emphasize">Thank you for taking the poll! <br> Results Submitted </h2>').replaceAll('#ranked-options').css('text-align', 'center');
       $('#submit-ranking').remove();
       $('.section-container.options header').remove();
+      $('.form-control').remove();
       $('.lead').remove();
       $('.section-container.options header h3').text('');
       $('.section-container.options').css('text-align', 'center');
