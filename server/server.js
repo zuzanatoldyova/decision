@@ -2,16 +2,11 @@
 
 // Basic express setup:
 require('dotenv').config();
-const twilio        = require('twilio');
-const accountSid    = process.env.TWILIO_ACCOUNT_SID;
-const authToken     = process.env.TWILIO_AUTH_TOKEN;
-const twilioNumber  = process.env.TWILIO_NUMBER;
-const client        = new twilio.RestClient(accountSid, authToken);
+
 const PORT          = process.env.PORT || 8080;
 const express       = require("express");
 const bodyParser    = require("body-parser");
 const app           = express();
-const API_KEY       = process.env.API_KEY;
 
 app.set("view engine", "ejs");
 
@@ -21,7 +16,6 @@ app.use(sassMiddleware({
   /* Options */
   src: path.join(__dirname, '../public/'),
   dest: path.join(__dirname, '../public/'),
-  debug: true,
   outputStyle: 'compressed'
 }));
 

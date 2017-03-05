@@ -17,8 +17,6 @@ function createKey(id){
 
 module.exports = (queries) => {
   pollsRoutes.post('/', (req, res) => {
-    console.log(req.body.email_invite);
-    // console.log('Body of request: ', req.body);
     // inserting user
     queries.insertUser({email: req.body.email}, (id) => {
       let keys = createKey(id.join(''));
@@ -51,7 +49,6 @@ module.exports = (queries) => {
           if (req.body.sms_invite) {
             twilioUtil.sendSmsInvites(req.body.email, data.user, req.body.sms_invite);
           }
-          console.log('response from post POLLS', data);
           res.status(201).json(data);
         });
       });
@@ -59,10 +56,7 @@ module.exports = (queries) => {
   });
 
   pollsRoutes.get('/:id', utils.checkId, (req, res) => {
-    // TODO: check if id exists
-    // TODO: if poll closed send polls results ----> redirect
     queries.findPollUser(req.params.id, (result) => {
-      console.log(result);
       let pollId = result[0].id;
       let question = result[0].question;
       let email = result[0].email;
@@ -83,7 +77,6 @@ module.exports = (queries) => {
             choices,
             email
           };
-          console.log(data);
           res.status(201).render('../../public/views/rankpoll', data);
         });
       }
@@ -91,15 +84,12 @@ module.exports = (queries) => {
   });
 
   pollsRoutes.post('/:id', (req, res) => {
-    // TODO: check if id exists
     queries.findPollUser(req.params.id, (result) => {
-      console.log(result);
       let data = {
         user: linkPrependUser + result[0].user_key,
         admin: linkPrependAdmin + result[0].admin_key
       };
-      let email = result[0].email; // prepared for recipient
-      // console.log(req.body.answers);
+      let email = result[0].email;
       queries.insertAnswer(req.body.answers, () => {
       // TODO: change to actual user
         let recipient = 'zuzana.toldyova@gmail.com';

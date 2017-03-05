@@ -1,4 +1,4 @@
-const settings = require("../../settings"); // settings.json
+const settings = require("../../settings");
 
 const knex = require('knex')({
   client: 'pg',
@@ -13,7 +13,6 @@ const knex = require('knex')({
 });
 
 module.exports = {
-  // insert returning id of just inserted
   insertUser: (data, done) => {
     knex('users')
     .insert(data, 'id')
@@ -76,9 +75,6 @@ module.exports = {
 
   findPollAdmin: (key, done) => {
     knex('polls')
-    // .leftJoin('users', function() {
-    //   this.on('polls.user_id', '=', 'users.id');
-    // })
     .select()
     .where('admin_key', key)
     .then(done)

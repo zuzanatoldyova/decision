@@ -6,8 +6,6 @@ const utils = require('../lib/utils');
 
 module.exports = (queries) => {
   adminRoutes.get('/:id', utils.checkId, (req, res) => {
-    // TODO check if id exists
-    console.log('Get results id:', req.params.id);
     queries.findPollAdmin(req.params.id, (result) => {
       let open = result[0].open;
       let pollId = result[0].id;
@@ -24,13 +22,8 @@ module.exports = (queries) => {
   });
 
   adminRoutes.put('/:id', (req, res) => {
-    // TODO check if id exists
-    console.log('Request for update ', req.body);
-    console.log('Get update poll adminkey: ', req.params.id);
     queries.findPollAdmin(req.params.id, (poll) => {
-      console.log(poll[0].id);
       queries.updatePollClose(poll[0].id, req.body, (result) => {
-        console.log('updated poll: ', result);
         res.status(201).send('updated');
       });
     });
