@@ -42,8 +42,8 @@ const knex = require('knex')({
   }
 });
 
-
 app.use(express.static("../public"));
+app.use(express.static("../public/views"));
 
 
 app.use('/polls', pollsRoutes(queries));

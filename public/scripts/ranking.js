@@ -2,7 +2,6 @@ $(document).ready(function () {
   registerRankingElementChange();
   registerSubmitRanking();
   setOptionsContainerHeight();
-
   $(window).resize(setOptionsContainerHeight);
 });
 
@@ -34,7 +33,6 @@ function registerSubmitRanking() {
 
 function onSubmitRanking(event) {
   event.preventDefault();
-
   var $rankedOptions = $("#ranked-options");
   var $children = $rankedOptions.children();
   var totalCount = 0;
@@ -56,12 +54,12 @@ function onSubmitRanking(event) {
   }
   let id = $('.container .droptrue').attr('data-id');
   $.ajax({
-      method: "POST",
-      url: `/polls/${id}`,
-      data: {
-        answers
-      }
-    })
+    method: "POST",
+    url: `/polls/${id}`,
+    data: {
+      answers
+    }
+  })
     .done(function (msg) {
       $('<h2 class="emphasize">Thank you for taking the poll! <br> Results Submitted </h2>').replaceAll('#ranked-options').css('text-align', 'center');
       $('#submit-ranking').remove();
