@@ -58,47 +58,49 @@ function onSubmitRanking(event) {
   // $(".container").empty();
 
 
-let id = $('.container .droptrue').attr('data-id');
+  let id = $('.container .droptrue').attr('data-id');
+  // $.ajax({
+  //   method: "POST",
+  //   // url: $(location).attr('href')
+  //   url: `/polls/${id}`,
+  //   data: {
+  //     answers
+  //   },
+  //   success: function (success) {
+  //     event.preventDefault();
+  //     $('.container').empty();
+  //     $('.error-notice').slideUp(function () {
+  //       $('.success-notice').slideDown();
+
+  //     });
+  //   },
+  //   error: function (error) {
+  //     event.preventDefault();
+  //     console.log(error);
+  //     $('.error-notice').slideUp(function () {
+  //       $('.error-notice').slideDown();
+  //     });
+  //   }
+  // });
+
   $.ajax({
-    method: "POST",
-    // url: $(location).attr('href')
-    url: `/polls/${id}`,
-    data: {
-      answers
-    },
-    success: function (success) {
-      event.preventDefault();
-      $('.container').empty();
-      $('.error-notice').slideUp(function () {
-        $('.success-notice').slideDown();
-      // $('<span class="emphasize" style="margin-bottom: 1em;">Thank you for taking the poll!</span>').replaceAll('#ranked-options').css('text-align', 'center');
-      // $('#submit-ranking').remove();
-      // $('.section-container.options header p.lead').remove();
-      // $('.section-container.options header h3').text('Results Submitted');
+      method: "POST",
+      // url: $(location).attr('href')
+      url: `/polls/${id}`,
+      data: {
+        answers
+      }
+    })
+    .done(function (msg) {
+      $('<h2 class="emphasize">Thank you for taking the poll! <br> Results Submitted </h2>').replaceAll('#ranked-options').css('text-align', 'center');
+      $('#submit-ranking').remove();
+      $('.section-container.options header').remove();
+      $('.lead').remove();
+      $('.section-container.options header h3').text('');
+      $('.section-container.options').css('text-align', 'center');
+      setOptionsContainerHeight();
+    })
+    .fail(function (err) {});
 
-      });
-    },
-    error: function (error) {
-      event.preventDefault();
-      console.log(error);
-      $('.error-notice').slideUp(function () {
-        $('.error-notice').slideDown();
-      });
-    }
-  })
 
-  // .done(function (msg) {
-  // $('<span class="emphasize" style="margin-bottom: 1em;">Thank you for taking the poll!</span>').replaceAll('#ranked-options').css('text-align', 'center');
-  // $('#submit-ranking').remove();
-  // $('.section-container.options header p.lead').remove();
-  // $('.section-container.options header h3').text('Results Submitted');
-  // $('<button>')
-  //   .addClass('btn btn-default')
-  //   .text('Make a New Poll')
-  //   .appendTo($('<a>').attr('href', '/').appendTo('.section-container.options'));
-  // $('.section-container.options').css('text-align', 'center');
-  // setOptionsContainerHeight();
-  // })
-  // .fail(function (err) {});
-  ;
 }
