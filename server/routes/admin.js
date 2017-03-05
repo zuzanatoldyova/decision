@@ -17,8 +17,6 @@ module.exports = (queries) => {
           question,
           results
         };
-        console.log(data);
-
         res.render("../../views/results", data);
       });
     });
