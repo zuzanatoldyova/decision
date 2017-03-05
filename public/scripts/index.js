@@ -221,15 +221,15 @@ $(document).ready(function(){
       }).then(function(data){
         var admin_link = data.admin;
         var voting_link =data.user;
-        var linkshtml = `<div class="links"><a href="${admin_link}">Admin Link</a>
-        <a href="${voting_link}">Voter Link</a></div>`;
+        var linkshtml = `<div class="links"><a href="${admin_link}" target="_blank">Admin Link</a>
+        <a href="${voting_link}" target="_blank">Voter Link</a></div>`;
         $(".container article header").remove();
         $(".container article main").remove();
         $(".container article aside").remove();
         $(".container article footer").remove();
         $(".container article").prepend(linkshtml);
       }).catch(function(err){
-          console.log("Can't get links");
+        console.log("Can't get links");
       });
    });
 });

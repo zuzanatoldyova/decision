@@ -4,7 +4,7 @@ $(document).ready(function(){
   var winnerIndex = 0;
   var winnerValue = 0;
   var highlight = 0;
-  $(".container footer").click(".btn-info", function(){
+  $(".container footer").on("click", ".btn-info", function(){
     var text = $(".container footer .btn-info").text();
     $(".container footer .btn-info").remove();
     if (text === "Close Poll"){
