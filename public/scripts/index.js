@@ -214,7 +214,6 @@ $(document).ready(function(){
       'sms_invite': validNumbers,
       'choices': choices
     }
-    console.log(data);
       $.ajax({
       url: '/polls',
       method: 'POST',
