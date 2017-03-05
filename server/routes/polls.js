@@ -7,6 +7,7 @@ const emailUtil = require('../lib/email');
 const linkPrependUser = 'http://localhost:8080/polls/';
 const linkPrependAdmin = 'http://localhost:8080/admin/polls/';
 const twilioUtil = require('../lib/twilio');
+const utils = require('../lib/utils');
 
 function createKey(id){
   let admin = md5(id);
@@ -57,7 +58,7 @@ module.exports = (queries) => {
     });
   });
 
-  pollsRoutes.get('/:id', (req, res) => {
+  pollsRoutes.get('/:id', utils.checkId, (req, res) => {
     // TODO: check if id exists
     // TODO: if poll closed send polls results ----> redirect
     queries.findPollUser(req.params.id, (result) => {
@@ -66,8 +67,14 @@ module.exports = (queries) => {
       let question = result[0].question;
       let email = result[0].email;
       let key = req.params.id;
-      if (!result.open) {
-        res.redirect('/:id/results');
+      if (!result[0].open) {
+        queries.findChoicesResults(pollId, (results) => {
+          let data = {
+            question,
+            results
+          };
+          res.render("../../views/resultsUser", data);
+        });
       } else {
         queries.findChoices(pollId, (choices) => {
           let data = {
