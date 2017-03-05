@@ -50,6 +50,17 @@ module.exports = {
     });
   },
 
+  findPollId: (key, done) => {
+    knex('polls')
+    .select()
+    .where('user_key', key)
+    .orWhere('admin_key', key)
+    .then(done)
+    .catch((err) => {
+      console.log(err);
+    });
+  },
+
   findPollUser: (key, done) => {
     knex('users')
     .leftJoin('polls', function() {
