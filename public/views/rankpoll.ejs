@@ -9,13 +9,13 @@
         <h2>
 
         </h2>
-        <p class="lead">Your friend at <%= email %> wants to know:<br>
-          <strong><%= question %></strong></p>
         <!-- <div class="row"> -->
         <!-- <div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3"> -->
         <div class="section-container options">
           <header>
-            <p class="lead">Click and drag to rank the choices</p>
+            <p class="lead">Your friend at <%= email %> wants to know:<br>
+            <strong><%= question %></strong></p>
+            <p class="pick">Click and drag to rank the choices</p>
           </header>
           <div class="droptrue" id="ranked-options" data-id="<%= id %>" >
             <% choices.forEach((choice, index) => { %>
@@ -24,7 +24,8 @@
                   <% }); %>
           </div>
           <footer class="submit-button">
-            <button class="btn btn-default" id="submit-ranking">Submit</button>
+            <input type="text" class="form-control" placeholder="Enter Name (Optional)">
+            <button class="btn btn-info" id="submit-ranking">Submit</button>
           </footer>
         </div>
         <!-- </div> -->
