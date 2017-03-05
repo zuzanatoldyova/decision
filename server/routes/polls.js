@@ -77,7 +77,7 @@ module.exports = (queries) => {
             choices,
             email
           };
-          res.status(201).render('../../public/views/rankpoll', data);
+          res.status(201).render('../../views/rankpoll', data);
         });
       }
     });
