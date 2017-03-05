@@ -68,7 +68,13 @@ module.exports = (queries) => {
       let email = result[0].email;
       let key = req.params.id;
       if (!result[0].open) {
-        res.redirect(`/polls/results/${key}`);
+        queries.findChoicesResults(pollId, (results) => {
+          let data = {
+            question,
+            results
+          };
+          res.render("../../views/resultsUser", data);
+        });
       } else {
         queries.findChoices(pollId, (choices) => {
           let data = {
@@ -81,21 +87,6 @@ module.exports = (queries) => {
           res.status(201).json(data);
         });
       }
-    });
-  });
-
-  pollsRoutes.get('/results/:id', (req, res) => {
-    console.log(req.params.id);
-    queries.findPollUser(req.params.id, (result) => {
-      let pollId = result[0].id;
-      let question = result[0].question;
-      queries.findChoicesResults(pollId, (results) => {
-        let data = {
-          question,
-          results
-        };
-        res.render("../../views/resultsUser", data);
-      });
     });
   });
 
