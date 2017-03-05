@@ -2,9 +2,10 @@
 
 const adminRoutes   = require('express').Router();
 const queries = require('../lib/queries');
+const utils = require('../lib/utils');
 
 module.exports = (queries) => {
-  adminRoutes.get('/:id', (req, res) => {
+  adminRoutes.get('/:id', utils.checkId, (req, res) => {
     // TODO check if id exists
     console.log('Get results id:', req.params.id);
     queries.findPollAdmin(req.params.id, (result) => {
@@ -18,7 +19,6 @@ module.exports = (queries) => {
           results
         };
         res.render("../../views/results", data);
-
       });
     });
   });
@@ -34,7 +34,6 @@ module.exports = (queries) => {
         res.status(201).send('updated');
       });
     });
-
   });
 
 
