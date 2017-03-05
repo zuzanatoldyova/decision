@@ -123,6 +123,29 @@ module.exports = {
     });
   },
 
+  findNamesPreferences: (pollId, done) => {
+    knex('choices')
+    .select('id')
+    .where('poll_id', pollId)
+    .then(function (data) {
+      let choicesIds = data.map(x => {
+        return x.id;
+      });
+      knex('choices')
+      .leftJoin('answers', function() {
+        this.on('answers.choice_id', '=', 'choices.id');
+      })
+      .select(knex.raw('array_agg(name) as names, choice_title, points'))
+      .whereIn('choices.id', choicesIds)
+      .groupBy('choice_title', 'points')
+      .having('points', '=', choicesIds.length)
+      .then(done)
+      .catch((err) => {
+        console.log(err);
+      });
+    });
+  },
+
   updatePollClose: (pollId, data, done) => {
     knex('polls')
     .where('id', pollId)
