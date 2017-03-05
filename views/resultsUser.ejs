@@ -43,7 +43,7 @@
           <% for(let i = 0; i < results.length; i++) {%>
               <tr>
                 <td><%=results[i].choice_title%><% if(results[i].description){%> - <% }%><%=results[i].description%></td>
-                 <% if (results[i].sum !== '0') {%>
+                 <% if (results[i].sum !== null) {%>
                   <td class="points"><%=results[i].sum%></td>
                 <% } else { %>
                   <td class="points">0</td>

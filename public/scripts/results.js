@@ -16,7 +16,9 @@ $(document).ready(function(){
       }).catch(function(err){
           console.log("Can't update poll");
       });
+      $(".container footer p").remove();
       $(".container footer").append(`<button class="btn btn-info">Open Poll</button>`);
+      $(".container footer").append(`<p style="color:red;">Poll is now closed!</p>`);
     } else {
       $.ajax({
       url: $(location).attr('href'),
@@ -26,7 +28,9 @@ $(document).ready(function(){
       }).catch(function(err){
           console.log("Can't update poll");
       });
+      $(".container footer p").remove();
       $(".container footer").append(`<button class="btn btn-info">Close Poll</button>`);
+      $(".container footer").append(`<p style="color:red;">Poll is now open!</p>`);
     }
   })
 

@@ -33,7 +33,6 @@ module.exports = (queries) => {
         res.status(201).send('updated');
       });
     });
-
   });
 
 
