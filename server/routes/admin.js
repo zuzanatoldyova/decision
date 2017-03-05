@@ -18,7 +18,6 @@ module.exports = (queries) => {
           results
         };
         res.render("../../views/results", data);
-
       });
     });
   });

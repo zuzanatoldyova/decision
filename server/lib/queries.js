@@ -51,10 +51,10 @@ module.exports = {
   },
 
   findPollUser: (key, done) => {
-    knex('polls')
-    // .leftJoin('users', function() {
-    //   this.on('polls.user_id', '=', 'users.id');
-    // })
+    knex('users')
+    .leftJoin('polls', function() {
+      this.on('polls.user_id', '=', 'users.id');
+    })
     .select()
     .where('user_key', key)
     .then(done)
@@ -104,14 +104,14 @@ module.exports = {
       let choicesIds = data.map(x => {
         return x.id;
       });
-      knex('answers')
-      .leftJoin('choices', function() {
+      knex('choices')
+      .leftJoin('answers', function() {
         this.on('answers.choice_id', '=', 'choices.id');
       })
-      .select('choice_id', 'choice_title', 'description')
+      .select('choices.id', 'choice_title', 'description')
       .sum('points')
-      .whereIn('choice_id', choicesIds)
-      .groupBy('choice_id', 'choice_title', 'description')
+      .whereIn('choices.id', choicesIds)
+      .groupBy('choices.id', 'choice_title', 'description')
       .then(done);
     });
   },
