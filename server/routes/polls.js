@@ -66,16 +66,20 @@ module.exports = (queries) => {
       let question = result[0].question;
       let email = result[0].email;
       let key = req.params.id;
-      queries.findChoices(pollId, (choices) => {
-        let data = {
-          id: key,
-          question,
-          choices,
-          email
-        };
-        console.log(data);
-        res.status(201).json(data);
-      });
+      if (!result.open) {
+        res.redirect('/:id/results');
+      } else {
+        queries.findChoices(pollId, (choices) => {
+          let data = {
+            id: key,
+            question,
+            choices,
+            email
+          };
+          console.log(data);
+          res.status(201).json(data);
+        });
+      }
     });
   });
 
