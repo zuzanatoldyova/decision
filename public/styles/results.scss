@@ -42,18 +42,9 @@ body {
       text-decoration: none;
     }
   }
-  .table-inverse th, td{
-    border-radius: 5px;
-  }
   .table-inverse thead tr{
     background-color: lighten( $primary-color, 10% );
     color: $primary-contrast;
-  }
-  .table-inverse tbody tr:nth-child(even){
-    background-color: white;
-  }
-  .table-inverse tbody tr:nth-child(odd){
-    background-color: silver;
   }
   main {
     margin-left: 5%;

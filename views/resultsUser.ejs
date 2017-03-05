@@ -15,6 +15,7 @@
 
     <!-- External JS -->
     <script type="text/javascript" src="/vendor/jquery-3.1.1.js"></script>
+
   </head>
 
   <body>
@@ -34,7 +35,6 @@
         <table class="table table-inverse">
           <thead>
               <tr>
-                <th>#</th>
                 <th>Title</th>
                 <th>Points</th>
               </tr>
@@ -42,9 +42,12 @@
             <tbody>
           <% for(let i = 0; i < results.length; i++) {%>
               <tr>
-                <th class="value"><%=i + 1%></th>
                 <td><%=results[i].choice_title%><% if(results[i].description){%> - <% }%><%=results[i].description%></td>
-                <td class="points"><%=results[i].sum%></td>
+                 <% if (results[i].sum !== '0') {%>
+                  <td class="points"><%=results[i].sum%></td>
+                <% } else { %>
+                  <td class="points">0</td>
+                  <% } %>
               </tr>
           <% } %>
             </tbody>
