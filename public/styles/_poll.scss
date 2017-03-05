@@ -51,6 +51,9 @@ sans-serif;
   border: 1px solid $dropareas-color;
   padding: 1.5em 1.5em 0 1.5em;
   margin-bottom: 2em;
+  h2 {
+      color: lighten( $primary-color, 10% );
+  }
 
 footer.submit-button {
   justify-content: left;
@@ -65,7 +68,6 @@ footer.submit-button {
     border-bottom: 1px solid $dropareas-color;
     padding: 1em 0 0em;
     h1,
-    h2,
     h3,
     h5,
     h6,
