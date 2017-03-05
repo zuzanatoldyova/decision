@@ -38,15 +38,15 @@ function onSubmitRanking(event) {
   var $rankedOptions = $("#ranked-options");
   var $children = $rankedOptions.children();
   var totalCount = 0;
+  var name = $(".form-control").val();
   var answers = [];
   $children.each(function (index) {
     totalCount++;
     var curRank = index + 1;
     var curID = Number($(this).attr("data-id"));
     answers.push({
-      choice_id: curID
-      // not needed for the database
-      // points: curRank
+      choice_id: curID,
+      name: name
     });
   });
   var bordaCount = totalCount;
@@ -54,38 +54,9 @@ function onSubmitRanking(event) {
     answers[i]["points"] = bordaCount;
     bordaCount--;
   }
-  console.log($(location).attr('href'));
-  // $(".container").empty();
-
-
   let id = $('.container .droptrue').attr('data-id');
-  // $.ajax({
-  //   method: "POST",
-  //   // url: $(location).attr('href')
-  //   url: `/polls/${id}`,
-  //   data: {
-  //     answers
-  //   },
-  //   success: function (success) {
-  //     event.preventDefault();
-  //     $('.container').empty();
-  //     $('.error-notice').slideUp(function () {
-  //       $('.success-notice').slideDown();
-
-  //     });
-  //   },
-  //   error: function (error) {
-  //     event.preventDefault();
-  //     console.log(error);
-  //     $('.error-notice').slideUp(function () {
-  //       $('.error-notice').slideDown();
-  //     });
-  //   }
-  // });
-
   $.ajax({
       method: "POST",
-      // url: $(location).attr('href')
       url: `/polls/${id}`,
       data: {
         answers
@@ -102,6 +73,4 @@ function onSubmitRanking(event) {
       setOptionsContainerHeight();
     })
     .fail(function (err) {});
-
-
 }
