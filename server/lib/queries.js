@@ -51,10 +51,10 @@ module.exports = {
   },
 
   findPollUser: (key, done) => {
-    knex('polls')
-    // .leftJoin('users', function() {
-    //   this.on('polls.user_id', '=', 'users.id');
-    // })
+    knex('users')
+    .leftJoin('polls', function() {
+      this.on('polls.user_id', '=', 'users.id');
+    })
     .select()
     .where('user_key', key)
     .then(done)
