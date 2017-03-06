@@ -17,9 +17,7 @@ module.exports = (queries) => {
           results
         };
         queries.findNamesPreferences(pollId, (results) => {
-          // console.log(results);
           data.preferences = results;
-          // console.log(data);
           res.render("../../views/results", data);
         });
 
