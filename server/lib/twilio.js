@@ -5,10 +5,10 @@ const myNumber      = process.env.MY_NUMBER;
 const twilio        = require('twilio');
 const client        = new twilio.RestClient(accountSid, authToken);
 
-function sendSmsInvite(user, link, recipient = myNumber) {
+function sendSmsInvite(user, link, recipient) {
   client.messages.create({
     body: `${user} invites you to vote for a new poll, you can vote on this link: ${link}`,
-    to: myNumber,
+    to: recipient,
     from: twilioNumber
   }, function(err, message) {
     console.log(err);
