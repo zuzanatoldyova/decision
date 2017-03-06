@@ -119,7 +119,10 @@ module.exports = {
       .sum('points')
       .whereIn('choices.id', choicesIds)
       .groupBy('choices.id', 'choice_title', 'description')
-      .then(done);
+      .then(done)
+      .catch((err) => {
+        console.log(err);
+      });
     });
   },
 
