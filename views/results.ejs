@@ -38,6 +38,7 @@
               <tr>
                 <th>Title</th>
                 <th>Points</th>
+                <th>User's First Choice</th>
               </tr>
             </thead>
             <tbody>
@@ -49,6 +50,8 @@
                 <% } else { %>
                   <td class="points">0</td>
                   <% } %>
+                  <td><%for(let j = 0; j < preferences.length; j++){ if(results[i].choice_title === preferences[j].choice_title){%><%=preferences[j].names.join(" ").replace(/\s\s+/g, ' ')%><%}}%></td>
+
               </tr>
           <% } %>
             </tbody>
