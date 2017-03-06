@@ -157,6 +157,21 @@ $(document).ready(function () {
     var email = $(".container article footer input").val();
     var invitesPhones = $(".container .phone textarea").val();
     var validNumbers;
+    var length = 0;
+    for(let i = 1; i <= $(".container article main input").length; i++){
+      if($(".container article main input").val().replace(/\s+/g, "").length === 0){
+        length++;
+      }
+    }
+    if ( length <= 1) {
+      $(".container article header .alert-danger").remove();
+      $(".container article header").append(`<div class="alert alert-danger" role="alert">
+          <a>You only have one option</a>
+          </div>`);
+      window.scrollTo(0, 0);
+      return;
+    }
+
 
     if (!validateEmail(email)) {
       $(".container article header .alert-danger").remove();
