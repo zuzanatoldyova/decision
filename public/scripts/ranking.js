@@ -33,7 +33,6 @@ function registerSubmitRanking() {
 
 function onSubmitRanking(event) {
   event.preventDefault();
-
   var $rankedOptions = $("#ranked-options");
   var $children = $rankedOptions.children();
   var totalCount = 0;
