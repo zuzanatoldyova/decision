@@ -61,13 +61,13 @@ function intialState() {
 
 function enterProgression() {
   var newSection = `<section class="input">
-          <div class="form-group">
+          <div class="form-group title">
             <label>Title</label>
             <input class="form-control" placeholder="Title">
             </div>
-          <div class="form-group">
-            <label>Description</label>
-            <textarea class="form-control" rows="3"></textarea>
+          <div class="form-group description">
+            <label>Description (Optional)</label>
+            <textarea class="form-control" rows="1"></textarea>
           </div>
           </section>`;
   $(".container article header input").keydown(function (event) {

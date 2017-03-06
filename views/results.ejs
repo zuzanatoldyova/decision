@@ -50,7 +50,7 @@
                 <% } else { %>
                   <td class="points">0</td>
                   <% } %>
-                  <td><%for(let j = 0; j < preferences.length; j++){ if(results[i].choice_title === preferences[j].choice_title){%><%=preferences[j].names.join(" ").replace(/\s\s+/g, ' ')%><%}}%></td>
+                  <td><%for(let j = 0; j < preferences.length; j++){ if(results[i].choice_title === preferences[j].choice_title){%><%=preferences[j].names.join(", ").replace(/(^\s*,)|(,\s*$)/g, '')%><%}}%></td>
 
               </tr>
           <% } %>
