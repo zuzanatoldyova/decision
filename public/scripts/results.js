@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  var index = $(".value").length;
+  var index = $(".table-inverse tbody tr").length;
   var test;
   var winnerIndex = 0;
   var winnerValue = 0;
@@ -33,12 +33,15 @@ $(document).ready(function(){
       $(".container footer").append(`<p style="color:red;">Poll is now open!</p>`);
     }
   })
-
+  console.log(index)
   for(let i = 1; i <= index; i++){
     test = Number($(`tbody tr:nth-child(${i}) .points`).text());
     if (test !== 0 && highlight === 0){
       highlight = 1;
     }
+      console.log(winnerValue)
+      console.log(test)
+
     if (winnerValue <= test){
       winnerValue = test;
       winnerIndex = i;
