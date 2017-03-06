@@ -158,8 +158,8 @@ $(document).ready(function () {
     var invitesPhones = $(".container .phone textarea").val();
     var validNumbers;
     var length = 0;
-    for(let i = 1; i <= $(".container article main input").length; i++){
-      if($(".container article main input").val().replace(/\s+/g, "").length === 0){
+    for(let i = 1; i <= choicesLength; i++){
+      if($(`.container article main section:nth-child(${i}) input`).val().replace(/\s+/g, "") !== ''){
         length++;
       }
     }
@@ -229,8 +229,10 @@ $(document).ready(function () {
     }).then(function (data) {
       var admin_link = data.admin;
       var voting_link = data.user;
-      var linkshtml = `<div class="links"><a href="${admin_link}" target="_blank">Admin Link</a>
-        <a href="${voting_link}" target="_blank">Voter Link</a></div>`;
+      var linkshtml = `<div class="question"><h6>Here are your links:</h6></div><div class="links"><a href="${admin_link}" target="_blank">Admin Link</a>
+        <a href="${voting_link}" target="_blank">Voter Link</a></div><div class="links"><form action="http://localhost:8080/">
+    <input type="submit" class="btn btn-info button" value="New Poll" />
+</form></div>`;
       $(".container article header").remove();
       $(".container article main").remove();
       $(".container article aside").remove();
@@ -239,5 +241,7 @@ $(document).ready(function () {
     }).catch(function (err) {
       console.log("Can't get links");
     });
+
+
   });
 });

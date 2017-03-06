@@ -29,6 +29,10 @@ body {
     border-width: 1px;
     border-color: grey;
   }
+  .button {
+    margin-bottom: 40%;
+    margin-top: 30%;
+  }
   .links {
     display: flex;
     align-items: center;
@@ -56,6 +60,12 @@ body {
   }
   header .question {
     margin: 1% 5% 1% 5%;
+  }
+  h6 {
+    margin: 5%;
+    color: lighten( $primary-color, 10% );
+    font-family: 'Russo One', sans-serif;
+    font-size: 2vw;
   }
   header a {
     color: lighten( $primary-color, 10% );
