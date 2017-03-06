@@ -54,7 +54,7 @@ $(document).ready(function(){
       console.log(winnerValue);
       if( test === winnerValue){
         console.log
-         $(`tbody tr:nth-child(${i})`).css("background-color", "yellow");
+         $(`tbody tr:nth-child(${i})`).css("background-color", "#33FF80");
       }
     }
   }
