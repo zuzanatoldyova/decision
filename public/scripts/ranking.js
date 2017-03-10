@@ -3,7 +3,14 @@ $(document).ready(function () {
   registerSubmitRanking();
   setOptionsContainerHeight();
   $(window).resize(setOptionsContainerHeight);
+  $(".container input").keydown(function (event) {
+    if (event.keyCode === 13) {
+      $(".submit-button .btn-info").click();
+    }
+  });
+
 });
+
 
 function setOptionsContainerHeight() {
   var container = $('.section-container.options');

@@ -59,4 +59,4 @@ typings/
 .env
 
 settings.json
-/.DS_store
+.DS_store

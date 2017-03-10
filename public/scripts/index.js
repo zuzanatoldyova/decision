@@ -59,13 +59,13 @@ function intialState() {
 
 function enterProgression() {
   var newSection = `<section class="input">
-          <div class="form-group">
+          <div class="form-group title">
             <label>Title</label>
             <input class="form-control" placeholder="Title">
             </div>
-          <div class="form-group">
-            <label>Description</label>
-            <textarea class="form-control" rows="3"></textarea>
+          <div class="form-group description">
+            <label>Description (Optional)</label>
+            <textarea class="form-control" rows="1"></textarea>
           </div>
           </section>`;
   $(".container article header input").keydown(function (event) {
@@ -155,6 +155,21 @@ $(document).ready(function () {
     var email = $(".container article footer input").val();
     var invitesPhones = $(".container .phone textarea").val();
     var validNumbers;
+    var length = 0;
+    for(let i = 1; i <= choicesLength; i++){
+      if($(`.container article main section:nth-child(${i}) input`).val().replace(/\s+/g, "") !== ''){
+        length++;
+      }
+    }
+    if ( length <= 1) {
+      $(".container article header .alert-danger").remove();
+      $(".container article header").append(`<div class="alert alert-danger" role="alert">
+          <a>You only have one option</a>
+          </div>`);
+      window.scrollTo(0, 0);
+      return;
+    }
+
 
     if (!validateEmail(email)) {
       $(".container article header .alert-danger").remove();
@@ -212,8 +227,10 @@ $(document).ready(function () {
     }).then(function (data) {
       var admin_link = data.admin;
       var voting_link = data.user;
-      var linkshtml = `<div class="links"><a href="${admin_link}" target="_blank">Admin Link</a>
-        <a href="${voting_link}" target="_blank">Voter Link</a></div>`;
+      var linkshtml = `<div class="question"><h6>Here are your links:</h6></div><div class="links"><a href="${admin_link}" target="_blank">Admin Link</a>
+        <a href="${voting_link}" target="_blank">Voter Link</a></div><div class="links"><form action="http://localhost:8080/">
+    <input type="submit" class="btn btn-info button" value="New Poll" />
+</form></div>`;
       $(".container article header").remove();
       $(".container article main").remove();
       $(".container article aside").remove();
@@ -222,5 +239,7 @@ $(document).ready(function () {
     }).catch(function (err) {
       console.log("Can't get links");
     });
+
+
   });
 });

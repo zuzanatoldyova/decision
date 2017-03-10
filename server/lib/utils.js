@@ -6,7 +6,7 @@ module.exports = {
       if(result.length){
         next();
       } else {
-        res.status(404).send('Page not found');
+        res.status(404).render('../../public/views/404');
       }
     });
   }

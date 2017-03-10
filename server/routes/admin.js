@@ -16,7 +16,11 @@ module.exports = (queries) => {
           question,
           results
         };
-        res.render("../../views/results", data);
+        queries.findNamesPreferences(pollId, (results) => {
+          data.preferences = results;
+          res.render("../../views/results", data);
+        });
+
       });
     });
   });

@@ -39,8 +39,7 @@ module.exports = (queries) => {
           choice.poll_id = poll_id;
         }
         queries.insertChoice(req.body.choices, () => {
-          // TODO change to actual user
-          let recipient = 'zuzana.toldyova@gmail.com';
+          let recipient = req.body.email;
           emailUtil.sendMailCreated(recipient, data);
           if (req.body.email_invite) {
             emailUtil.sendMailInvites(req.body.email, req.body.email_invite, data.user);
@@ -89,10 +88,8 @@ module.exports = (queries) => {
         user: linkPrependUser + result[0].user_key,
         admin: linkPrependAdmin + result[0].admin_key
       };
-      let email = result[0].email;
+      let recipient = result[0].email;
       queries.insertAnswer(req.body.answers, () => {
-      // TODO: change to actual user
-        let recipient = 'zuzana.toldyova@gmail.com';
         emailUtil.sendMailVoted(recipient, data);
         res.status(201).send();
       });
