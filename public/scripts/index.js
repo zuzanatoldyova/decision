@@ -53,9 +53,7 @@ function validateEmail(email) {
 function intialState() {
   $(".container article header input").focus();
   $(".container article main").slideUp("fast");
-
   $(".container article footer").slideUp("fast");
-
   $(".container article aside").slideUp("fast");
 }
 

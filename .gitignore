@@ -58,5 +58,8 @@ typings/
 # dotenv environment variables file
 .env
 
+# css files because SASS creates the css using middleware
+.css
+
 settings.json
 .DS_store
