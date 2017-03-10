@@ -1,0 +1,40 @@
+Requirements:
+✔ a user can create a poll with multiple choices @done (2017-03-10, 11:20:44 AM)
+✔ each choice can have a title and optional description @done (2017-03-10, 11:20:48 AM)
+✔ the creator must enter an email @done (2017-03-10, 11:23:14 AM)
+✔ when a poll is finished being created, the user is given two links: an administrative link (which lets them access the results) and a submission link (which the user sends to their friends) @done (2017-03-10, 11:22:52 AM)
+✔ the links are also sent to the creator via email (using mailgun) @done (2017-03-10, 11:22:45 AM)
+✔ when a user visits the submission link, they enter their name if required (see extensions) and see a list of the choices for that poll @done (2017-03-10, 11:44:37 AM)
+✔ the user can rank the choices (by drag and drop, or some other method) and then submits the poll @done (2017-03-10, 11:44:42 AM)
+✔ each time a submission is received, the creator is notified with an email (which includes the administrative link and a link to the results) @done (2017-03-10, 11:44:50 AM)
+✔ the results are ranked using the Borda Count method: https://en.wikipedia.org/wiki/Borda_count @done (2017-03-10, 11:44:53 AM)
+✔ note: this app does not follow the typical user authentication process: voters don't need to register or log in and the only way to access the polls or see the results is via links @done (2017-03-10, 11:45:00 AM)
+
+Extensions:
+✘ use the Instant Runoff algorithm instead of Borda Count: https://en.wikipedia.org/wiki/Instant-runoff_voting @cancelled (2017-03-10, 11:45:17 AM)
+✘ make the app work well on mobile @cancelled (2017-03-10, 12:22:51 PM)
+✔ allow the creator to enter their friends' emails when creating the poll and send the poll to those emails (using mailgun) @done (2017-03-10, 12:22:16 PM)
+✔ allow the creator to enter phone numbers and send the poll link to those numbers (using twilio) @done (2017-03-10, 12:21:35 PM)
+make it so that the entire poll can be completed via SMS
+✘ support uploading photos for choices (for example, to answer "which of these logos is best") @cancelled (2017-03-10, 12:21:18 PM)
+✘ let users put links as choices and use embed.ly to embed the content (would work well for map links) @cancelled (2017-03-10, 12:21:03 PM)
+✘ add unit tests (using mocha + chai) @cancelled (2017-03-10, 12:20:28 PM)
+✘ add end-to-end tests (using phantomjs) @cancelled (2017-03-10, 12:20:35 PM)
+✘ creator is given the option to require voters to enter a name (or not) @cancelled (2017-03-10, 12:20:54 PM)
+
+Review:
+. ERD should have a link from Users table to the choices table. Normalization could be used for name if the users wanted to go further into the voters info.
+. PROMISE for queries using promises would make it more readable.
+☐ read up further into "Promises"
+☐ earn up on "._curry" method
+. CONST seperating the requires to each module function e.g. twilio, express, sass-middleware.
+. SASS styles scss folder should not be in public directory instead should be in the root directory and should incorperate the css files into the gitignore file. FONT FAMILY could be set as default in the base/index css. Reduce repitition in SASS files.
+
+. client.js get rid off console.logs on the client side.
+. TEXT use ids, classes or data-attributes to link text.
+. Results.js dont have css code within, put classes in your code and seperate the style look in your css files for your routes.
+
+Future Improvements:
+☐ Adjust queries to Promises
+☐ Adjust error catching to just warn the user notifing that an error has occured on the front-end and log the error situation logged on the back-end on a log file
+☐ Cleanup callbacks - Polls shoudnt have too much code within the callback functions. instead create modular functions so the callback function looks neat and tidy.
